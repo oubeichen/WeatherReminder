@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.oubeichen.weather.slidingtabsbasic;
+package com.oubeichen.weather;
 
 import com.oubeichen.weather.common.logger.Log;
 import com.oubeichen.weather.common.view.SlidingTabLayout;
@@ -98,7 +98,7 @@ public class SlidingTabsBasicFragment extends Fragment {
          */
         @Override
         public int getCount() {
-            return 10;
+            return 4;
         }
 
         /**
@@ -120,7 +120,16 @@ public class SlidingTabsBasicFragment extends Fragment {
          */
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Item " + (position + 1);
+            switch(position){
+                case 1:
+                    return getResources().getString(R.string.clothes_pager_title);
+                case 2:
+                    return getResources().getString(R.string.reminder_pager_title);
+                case 3:
+                    return getResources().getString(R.string.settings_pager_title);
+                default:
+                    return getResources().getString(R.string.weather_pager_title);
+            }
         }
         // END_INCLUDE (pageradapter_getpagetitle)
 
@@ -130,15 +139,17 @@ public class SlidingTabsBasicFragment extends Fragment {
          */
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
+            View view;
             // Inflate a new layout from our resources
-            View view = getActivity().getLayoutInflater().inflate(R.layout.pager_item,
-                    container, false);
+            if(position == 0){
+                view = getActivity().getLayoutInflater().inflate(R.layout.weather_pager,
+                        container, false);
+            } else {
+                view = getActivity().getLayoutInflater().inflate(R.layout.clothes_pager,
+                        container, false);
+            }
             // Add the newly created View to the ViewPager
             container.addView(view);
-
-            // Retrieve a TextView from the inflated View, and update it's text
-            TextView title = (TextView) view.findViewById(R.id.item_title);
-            title.setText(String.valueOf(position + 1));
 
             Log.i(LOG_TAG, "instantiateItem() [position: " + position + "]");
 
