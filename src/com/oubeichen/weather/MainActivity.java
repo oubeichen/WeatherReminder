@@ -23,16 +23,20 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.oubeichen.weather.common.activities.SampleActivityBase;
 import com.oubeichen.weather.common.logger.Log;
 import com.oubeichen.weather.common.logger.LogFragment;
 import com.oubeichen.weather.common.logger.LogWrapper;
 import com.oubeichen.weather.common.logger.MessageOnlyLogFilter;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -50,6 +54,8 @@ import android.widget.TextView;
 public class MainActivity extends SampleActivityBase {
 
     public static final String TAG = "MainActivity";
+    
+    public static final String SOURCE_URL = "http://weatherapi.market.xiaomi.com/wtr-v2/weather?cityId=101190101";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +95,7 @@ public class MainActivity extends SampleActivityBase {
      * Implementation of AsyncTask, to fetch the data in the background away from
      * the UI thread.
      */
-    private class DownloadTask extends AsyncTask<String, Void, String> {
+    private class RefreshWeatherTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... urls) {
@@ -104,52 +110,93 @@ public class MainActivity extends SampleActivityBase {
          * Uses the logging framework to display the output of the fetch
          * operation in the log fragment.
          */
+        @SuppressLint("SimpleDateFormat")
         @Override
         protected void onPostExecute(String result) {
-            Log.i(TAG, result);
-            String weather = result.substring(result.indexOf("w['南京']=") + 9,
-                    result.indexOf("}];") + 1);
-            String time = result.substring(result.indexOf("add={") + 4, result.indexOf("};window") + 1);
+            //Log.i(TAG, result);
+            String weather = result;
             JSONObject jsonObject;
             try {
                 jsonObject = new JSONObject(weather);
-                // update tempature
-                TextView temp_day = ((TextView) findViewById(R.id.temp_day));
-                temp_day.setText(jsonObject.getString("t1") + "℃");
-                temp_day.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
-                TextView temp_night = ((TextView) findViewById(R.id.temp_night));
-                temp_night.setText(jsonObject.getString("t2") + "℃");
-                temp_night.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
+                // update today start
+                JSONObject realtime = jsonObject.getJSONObject("realtime");
                 
+                TextView temp_day = ((TextView) findViewById(R.id.temp_day));
+                temp_day.setText(realtime.getString("temp") + "℃");
+                temp_day.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
                 // update weather
                 ((TextView) findViewById(R.id.weather_day))
-                        .setText(jsonObject.getString("s1"));
-                ((TextView) findViewById(R.id.weather_night))
-                        .setText(jsonObject.getString("s2"));
-                
+                        .setText(realtime.getString("weather"));
                 //update wind
                 ((TextView) findViewById(R.id.wind_day))
-                        .setText(jsonObject.getString("d1") + jsonObject.getString("p1") + "级");
-                ((TextView) findViewById(R.id.wind_night))
-                        .setText(jsonObject.getString("d2") + jsonObject.getString("p2") + "级");
+                        .setText(realtime.getString("WD") + realtime.getString("WS"));
                 
-                jsonObject = new JSONObject(time);
                 ((TextView) findViewById(R.id.update_time_text))
-                        .setText(jsonObject.getString("update"));
-            } catch (JSONException e) {
-            }
+                        .setText(realtime.getString("time"));
+                // update today end
+                // update other days
+                JSONObject forecast = jsonObject.getJSONObject("forecast");
+                JSONObject today = jsonObject.getJSONObject("today");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+                SimpleDateFormat sdf2 = new SimpleDateFormat("MM月dd日");
+                // today
+                Date date = sdf.parse(today.getString("date"));
+                
+                ((TextView) findViewById(R.id.temp_day1))
+                        .setText(forecast.getString("temp1"));
+                ((TextView) findViewById(R.id.weather_day1))
+                        .setText(forecast.getString("weather1"));
+                ((TextView) findViewById(R.id.date1))
+                        .setText(sdf2.format(date));
+                // day1
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                calendar.add(Calendar.DATE, 1);
+                ((TextView) findViewById(R.id.temp_day2))
+                        .setText(forecast.getString("temp2"));
+                ((TextView) findViewById(R.id.weather_day2))
+                        .setText(forecast.getString("weather2"));
+                ((TextView) findViewById(R.id.date2))
+                        .setText(sdf2.format(calendar.getTime()));
+                // day2
+                calendar.add(Calendar.DATE, 1);
+                ((TextView) findViewById(R.id.temp_day3))
+                        .setText(forecast.getString("temp3"));
+                ((TextView) findViewById(R.id.weather_day3))
+                        .setText(forecast.getString("weather3"));
+                ((TextView) findViewById(R.id.date3))
+                        .setText(sdf2.format(calendar.getTime()));
+                // day3
+                calendar.add(Calendar.DATE, 1);
+                ((TextView) findViewById(R.id.temp_day4))
+                        .setText(forecast.getString("temp4"));
+                ((TextView) findViewById(R.id.weather_day4))
+                        .setText(forecast.getString("weather4"));
+                ((TextView) findViewById(R.id.date4))
+                        .setText(sdf2.format(calendar.getTime()));
+                // day4
+                calendar.add(Calendar.DATE, 1);
+                ((TextView) findViewById(R.id.temp_day5))
+                        .setText(forecast.getString("temp5"));
+                ((TextView) findViewById(R.id.weather_day5))
+                        .setText(forecast.getString("weather5"));
+                ((TextView) findViewById(R.id.date5))
+                        .setText(sdf2.format(calendar.getTime()));
 
+            } catch (JSONException e) {
+            } catch (ParseException e) {
+            }
         }
     }
 
     /** Initiates the fetch operation. */
-    private String loadFromNetwork(String urlString) throws IOException {
+    private String loadFromNetwork(String url) throws IOException {
         InputStream stream = null;
-        String str = "";
-
+        String str = null;
         try {
-            stream = downloadUrl(urlString);
-            str = readIt(stream, 500);
+            stream = downloadUrl(url);
+            str = readIt(stream, 50000);//500KB
+
         } finally {
             if (stream != null) {
                 stream.close();
@@ -189,13 +236,13 @@ public class MainActivity extends SampleActivityBase {
      */
     private String readIt(InputStream stream, int len) throws IOException, UnsupportedEncodingException {
         Reader reader = null;
-        reader = new InputStreamReader(stream, "GBK");
+        reader = new InputStreamReader(stream, "UTF-8");
         char[] buffer = new char[len];
         reader.read(buffer);
         return new String(buffer);
     }
     
     public void refresh(View v){
-        new DownloadTask().execute("http://php.weather.sina.com.cn/iframe/index/w_cl.php?code=js&day=0&city=%E5%8D%97%E4%BA%AC");
+        new RefreshWeatherTask().execute(SOURCE_URL);
     }
 }
