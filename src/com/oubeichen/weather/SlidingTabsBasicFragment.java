@@ -19,10 +19,13 @@ package com.oubeichen.weather;
 import com.oubeichen.weather.common.logger.Log;
 import com.oubeichen.weather.common.view.SlidingTabLayout;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +39,7 @@ import android.widget.TextView;
 public class SlidingTabsBasicFragment extends Fragment {
 
     static final String LOG_TAG = "SlidingTabsBasicFragment";
+    public static final String PREFS_NAME = "WeatherStorage";
 
     /**
      * A custom {@link ViewPager} title strip which looks much like Tabs present in Android v4.0 and
@@ -144,6 +148,11 @@ public class SlidingTabsBasicFragment extends Fragment {
             if(position == 0){
                 view = getActivity().getLayoutInflater().inflate(R.layout.weather_pager,
                         container, false);
+                SharedPreferences storage = getActivity()
+                        .getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
+                if(WeatherManager.loadWeather(storage)){
+                    updateWeatherView(view);
+                }
             } else {
                 view = getActivity().getLayoutInflater().inflate(R.layout.clothes_pager,
                         container, false);
@@ -167,5 +176,71 @@ public class SlidingTabsBasicFragment extends Fragment {
             Log.i(LOG_TAG, "destroyItem() [position: " + position + "]");
         }
 
+        @Override
+        public int getItemPosition(Object object) {
+         return POSITION_NONE;
+        }
+    }
+    
+    public ViewPager getViewPager(){
+        return mViewPager;
+    }
+    
+    public static void updateWeatherView(View view){
+        // update realtime start
+        TextView temp_day = ((TextView) view.findViewById(R.id.temp_day));
+        if(temp_day == null){
+            Log.i(LOG_TAG, "textview is null!");
+            return;
+        }
+        temp_day.setText(WeatherManager.temp_today);
+        temp_day.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
+        // update weather
+        ((TextView) view.findViewById(R.id.weather_day))
+                .setText(WeatherManager.weather_today);
+        // update wind
+        ((TextView) view.findViewById(R.id.wind_day))
+                .setText(WeatherManager.wind_direction_today
+                        + WeatherManager.wind_scale_today);
+
+        ((TextView) view.findViewById(R.id.update_time_text))
+                .setText(WeatherManager.update_time);
+        // update realtime end
+
+        // update forecast
+        ((TextView) view.findViewById(R.id.temp_day1))
+                .setText(WeatherManager.temp_day1);
+        ((TextView) view.findViewById(R.id.weather_day1))
+                .setText(WeatherManager.weather_day1);
+        ((TextView) view.findViewById(R.id.date1))
+                .setText(WeatherManager.date_day1);
+        // day1
+        ((TextView) view.findViewById(R.id.temp_day2))
+                .setText(WeatherManager.temp_day2);
+        ((TextView) view.findViewById(R.id.weather_day2))
+                .setText(WeatherManager.weather_day2);
+        ((TextView) view.findViewById(R.id.date2))
+                .setText(WeatherManager.date_day2);
+        // day2
+        ((TextView) view.findViewById(R.id.temp_day3))
+                .setText(WeatherManager.temp_day3);
+        ((TextView) view.findViewById(R.id.weather_day3))
+                .setText(WeatherManager.weather_day3);
+        ((TextView) view.findViewById(R.id.date3))
+                .setText(WeatherManager.date_day3);
+        // day3
+        ((TextView) view.findViewById(R.id.temp_day4))
+                .setText(WeatherManager.temp_day4);
+        ((TextView) view.findViewById(R.id.weather_day4))
+                .setText(WeatherManager.weather_day4);
+        ((TextView) view.findViewById(R.id.date4))
+                .setText(WeatherManager.date_day4);
+        // day4
+        ((TextView) view.findViewById(R.id.temp_day5))
+                .setText(WeatherManager.temp_day5);
+        ((TextView) view.findViewById(R.id.weather_day5))
+                .setText(WeatherManager.weather_day5);
+        ((TextView) view.findViewById(R.id.date5))
+                .setText(WeatherManager.date_day5);
     }
 }
