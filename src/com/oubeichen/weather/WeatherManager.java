@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -74,6 +75,16 @@ public class WeatherManager
             weather_day5 = forecast.getString("weather5");
             date_day5 = sdf2.format(calendar.getTime());
 
+            // living index
+            JSONArray indexArray = jsonObject.getJSONArray("index");
+            living_length = indexArray.length();
+            for(int i = 0;i < living_length; i++) {
+                JSONObject index = indexArray.getJSONObject(i);
+                living_name[i] = index.getString("name");
+                living_index[i] = index.getString("index");
+                living_des[i] = index.getString("details");
+            }
+            
             isOpen = true;
             storeWeather(storage);
         }
@@ -112,6 +123,13 @@ public class WeatherManager
         editor.putString("weather_day5", weather_day5);
         editor.putString("date_day5", date_day5);
         
+        editor.putInt("living_length", living_length);
+        for(int i = 0;i < living_length; i++) {
+            editor.putString("living_name" + i, living_name[i]);
+            editor.putString("living_index" + i, living_index[i]);
+            editor.putString("living_des" + i, living_des[i]);
+        }
+        
         // 不要忘记提交commit()
         editor.commit();
         return true;
@@ -146,6 +164,14 @@ public class WeatherManager
         temp_day5 = storage.getString("temp_day5", "");
         weather_day5 = storage.getString("weather_day5", "");
         date_day5 = storage.getString("date_day5", "");
+        
+        living_length = storage.getInt("living_length", 0);
+        for(int i = 0;i < living_length; i++) {
+            living_name[i] = storage.getString("living_name" + i, "");
+            living_index[i] = storage.getString("living_index" + i, "");
+            living_des[i] = storage.getString("living_des" + i, "");
+        }
+        
         return true;
     }
     
@@ -170,4 +196,9 @@ public class WeatherManager
     public static String temp_day5;
     public static String weather_day5;
     public static String date_day5;
+    
+    public static int living_length = 0;
+    public static String[] living_name = new String[5];
+    public static String[] living_index = new String[5];
+    public static String[] living_des = new String[5];
 }

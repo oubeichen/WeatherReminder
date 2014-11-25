@@ -1,48 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/umbrella"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/clothes"
-        android:layout_below="@+id/clothes"
-        android:layout_marginTop="36dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
 
-    <TextView
-        android:id="@+id/clothes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="62dp"
-        android:layout_marginTop="36dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        <TextView
+            android:id="@+id/living_name1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="18dp"
+            android:text="Name"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/TextView01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/clothes"
-        android:layout_alignBottom="@+id/clothes"
-        android:layout_marginRight="44dp"
-        android:layout_toLeftOf="@+id/clothes"
-        android:text="着衣"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="30sp" />
+        <TextView
+            android:id="@+id/living_index1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/living_name1"
+            android:layout_alignBottom="@+id/living_name1"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/living_name1"
+            android:text="Index"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/TextView02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/umbrella"
-        android:layout_alignBottom="@+id/umbrella"
-        android:layout_alignLeft="@+id/TextView01"
-        android:text="带伞"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="30sp" />
+        <TextView
+            android:id="@+id/living_description1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/living_name1"
+            android:layout_below="@+id/living_name1"
+            android:text="Description, this can be veryveryveryvery long"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/living_name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="18dp"
+            android:text="Name"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/living_index2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/living_name2"
+            android:layout_alignBottom="@+id/living_name2"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/living_name2"
+            android:text="Index"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/living_description2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/living_name2"
+            android:layout_below="@+id/living_name2"
+            android:text="Description, this can be veryveryveryvery long"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/living_name3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="18dp"
+            android:text="Name"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/living_index3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/living_name3"
+            android:layout_alignBottom="@+id/living_name3"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/living_name3"
+            android:text="Index"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/living_description3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/living_name3"
+            android:layout_below="@+id/living_name3"
+            android:text="Description, this can be veryveryveryvery long"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/living_name4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="18dp"
+            android:text="Name"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/living_index4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/living_name4"
+            android:layout_alignBottom="@+id/living_name4"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/living_name4"
+            android:text="Index"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/living_description4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/living_name4"
+            android:layout_below="@+id/living_name4"
+            android:text="Description, this can be veryveryveryvery long"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/living_name5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="18dp"
+            android:text="Name"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/living_index5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/living_name5"
+            android:layout_alignBottom="@+id/living_name5"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/living_name5"
+            android:text="Index"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/living_description5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/living_name5"
+            android:layout_below="@+id/living_name5"
+            android:text="Description, this can be veryveryveryvery long"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+
+</LinearLayout>

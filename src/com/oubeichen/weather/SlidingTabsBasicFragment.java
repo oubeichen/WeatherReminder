@@ -156,6 +156,11 @@ public class SlidingTabsBasicFragment extends Fragment {
             } else {
                 view = getActivity().getLayoutInflater().inflate(R.layout.clothes_pager,
                         container, false);
+                SharedPreferences storage = getActivity()
+                        .getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
+                if(WeatherManager.loadWeather(storage)){
+                    updateClothesView(view);
+                }
             }
             // Add the newly created View to the ViewPager
             container.addView(view);
@@ -242,5 +247,50 @@ public class SlidingTabsBasicFragment extends Fragment {
                 .setText(WeatherManager.weather_day5);
         ((TextView) view.findViewById(R.id.date5))
                 .setText(WeatherManager.date_day5);
+    }
+    
+    public static void updateClothesView(View view){
+        // update living index start
+        // index1
+        TextView living_name1 = ((TextView) view.findViewById(R.id.living_name1));
+        if(living_name1 == null){
+            Log.i(LOG_TAG, "textview is null!");
+            return;
+        }
+        living_name1.setText(WeatherManager.living_name[0]);
+        //living_name1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
+        ((TextView) view.findViewById(R.id.living_index1))
+                .setText(WeatherManager.living_index[0]);
+        ((TextView) view.findViewById(R.id.living_description1))
+                .setText(WeatherManager.living_des[0]);
+        // index2
+        ((TextView) view.findViewById(R.id.living_name2))
+                .setText(WeatherManager.living_name[1]);
+        ((TextView) view.findViewById(R.id.living_index2))
+                .setText(WeatherManager.living_index[1]);
+        ((TextView) view.findViewById(R.id.living_description2))
+                .setText(WeatherManager.living_des[1]);
+        // index3
+        ((TextView) view.findViewById(R.id.living_name3))
+                .setText(WeatherManager.living_name[2]);
+        ((TextView) view.findViewById(R.id.living_index3))
+                .setText(WeatherManager.living_index[2]);
+        ((TextView) view.findViewById(R.id.living_description3))
+                .setText(WeatherManager.living_des[2]);
+        // index4
+        ((TextView) view.findViewById(R.id.living_name4))
+                .setText(WeatherManager.living_name[3]);
+        ((TextView) view.findViewById(R.id.living_index4))
+                .setText(WeatherManager.living_index[3]);
+        ((TextView) view.findViewById(R.id.living_description4))
+                .setText(WeatherManager.living_des[3]);
+        // index5
+        ((TextView) view.findViewById(R.id.living_name5))
+                .setText(WeatherManager.living_name[4]);
+        ((TextView) view.findViewById(R.id.living_index5))
+                .setText(WeatherManager.living_index[4]);
+        ((TextView) view.findViewById(R.id.living_description5))
+                .setText(WeatherManager.living_des[4]);
+        // update living index end
     }
 }
