@@ -1,16 +1,69 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.oubeichen.weather.AddAlarmActivity" >
+    android:orientation="vertical"
+    tools:context="com.oubeichen.weather.AddAlarmActivity"
+    android:gravity="center_horizontal" >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:orientation="horizontal" >
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/alarm_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/alarm_name"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/alarm_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/alarm_name_hint" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/condition_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/add_condition"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="90sp"
+        android:layout_height="wrap_content"
+        android:text="@string/add_button_text"
+        android:onClick="addConditionClick" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right" >
+
+        <Button
+            android:id="@+id/add_alarm_ok"
+            android:layout_width="90sp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_ok"
+            style="?android:attr/buttonBarButtonStyle" />
+
+        <Button
+            android:id="@+id/add_alarm_cancel"
+            android:layout_width="90sp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_cancel"
+            style="?android:attr/buttonBarButtonStyle" />
+    </LinearLayout>
+
+</LinearLayout>
