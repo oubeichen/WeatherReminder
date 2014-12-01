@@ -153,7 +153,7 @@ public class SlidingTabsBasicFragment extends Fragment {
                 if(WeatherManager.loadWeather(storage)){
                     updateWeatherView(view);
                 }
-            } else {
+            } else if(position == 1) {
                 view = getActivity().getLayoutInflater().inflate(R.layout.clothes_pager,
                         container, false);
                 SharedPreferences storage = getActivity()
@@ -161,6 +161,10 @@ public class SlidingTabsBasicFragment extends Fragment {
                 if(WeatherManager.loadWeather(storage)){
                     updateClothesView(view);
                 }
+            } else {
+                view = getActivity().getLayoutInflater().inflate(R.layout.remind_pager,
+                        container, false);
+                
             }
             // Add the newly created View to the ViewPager
             container.addView(view);

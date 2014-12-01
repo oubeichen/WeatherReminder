@@ -129,4 +129,13 @@ public class MainActivity extends SampleActivityBase {
         }
         return false;
     }
+    
+    public void onAddAlarmClick(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, AddAlarmActivity.class);
+        //EditText editText = (EditText) findViewById(R.id.edit_message);
+        //String message = editText.getText().toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
 }

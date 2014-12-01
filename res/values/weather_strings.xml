@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="connection_error">连接失败</string>
-    <string name="day_title">今日白天</string>
-    <string name="night_title">今日夜晚</string>
-</resources>

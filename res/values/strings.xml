@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WeatherReminder</string>
+    <string name="add_button_text">Add</string>
+    <string name="no_remind">There is no alarm in the list</string>
+    <string name="title_activity_add_alarm">AddAlarmActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="weather_pager_title">天气</string>
+    <string name="clothes_pager_title">指数</string>
+    <string name="reminder_pager_title">提醒</string>
+    <string name="settings_pager_title">设置</string>
+    
+    <string name="connection_error">连接失败</string>
+    <string name="day_title">今日白天</string>
+    <string name="night_title">今日夜晚</string>
+</resources>
