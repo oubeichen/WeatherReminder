@@ -3,6 +3,7 @@
 
     <string name="app_name">WeatherReminder</string>
     <string name="add_button_text">Add</string>
+    <string name="del_button_text">Del</string>
     <string name="no_remind">There is no alarm in the list</string>
     <string name="title_activity_add_alarm">AddAlarmActivity</string>
     <string name="alarm_name">Name:</string>

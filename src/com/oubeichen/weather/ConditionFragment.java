@@ -1,17 +1,20 @@
 package com.oubeichen.weather;
 
+import com.oubeichen.weather.common.logger.Log;
+
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -119,7 +122,7 @@ public class ConditionFragment extends Fragment {
         lsTypes = getResources().getStringArray(R.array.ls_type);
         lsAdapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.drop_down_item, lsTypes);
-        tempVals = getResources().getStringArray(R.array.ls_type);
+        tempVals = getResources().getStringArray(R.array.temp_val);
         tempAdapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.drop_down_item, tempVals);
     }
@@ -132,6 +135,8 @@ public class ConditionFragment extends Fragment {
         Spinner cond_type1 = new Spinner(getActivity());
         Spinner cond_type2 = new Spinner(getActivity());
         Spinner cond_type3 = new Spinner(getActivity());
+        TextView cond_text = new TextView(getActivity());
+        cond_text.setText("条件" + (number + 1));
         cond_type1.setTag("type1_cond" + number);
         cond_type2.setTag("type2_cond" + number);
         cond_type3.setTag("type3_cond" + number);
@@ -140,6 +145,7 @@ public class ConditionFragment extends Fragment {
         LinearLayout layout_in = new LinearLayout(getActivity());
         layout_out.setOrientation(LinearLayout.VERTICAL);
         layout_in.setOrientation(LinearLayout.HORIZONTAL);
+        layout_out.addView(cond_text);
         layout_out.addView(cond_type);
         layout_out.addView(layout_in);
         layout_in.addView(cond_type1);
@@ -235,5 +241,13 @@ public class ConditionFragment extends Fragment {
 
     public static void clean(){
         count = 0;
+    }
+
+    public static void del(){
+        count--;
+    }
+
+    public static int getCount(){
+        return count;
     }
 }
