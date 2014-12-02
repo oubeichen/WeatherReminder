@@ -1,20 +1,17 @@
 package com.oubeichen.weather;
 
-import com.oubeichen.weather.common.logger.Log;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -59,6 +56,11 @@ public class ConditionFragment extends Fragment {
     private static int count = 0;
 
     private int number;
+    
+    public Spinner cond_type;
+    public Spinner cond_type1;
+    public Spinner cond_type2;
+    public Spinner cond_type3;
 
     /**
      * Use this factory method to create a new instance of this fragment using
@@ -125,16 +127,18 @@ public class ConditionFragment extends Fragment {
         tempVals = getResources().getStringArray(R.array.temp_val);
         tempAdapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.drop_down_item, tempVals);
+        
+        cond_type = new Spinner(getActivity());
+        cond_type1 = new Spinner(getActivity());
+        cond_type2 = new Spinner(getActivity());
+        cond_type3 = new Spinner(getActivity());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Spinner cond_type = new Spinner(getActivity());
-        Spinner cond_type1 = new Spinner(getActivity());
-        Spinner cond_type2 = new Spinner(getActivity());
-        Spinner cond_type3 = new Spinner(getActivity());
+
         TextView cond_text = new TextView(getActivity());
         cond_text.setText("条件" + (number + 1));
         cond_type1.setTag("type1_cond" + number);
