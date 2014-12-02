@@ -14,6 +14,7 @@ public class AddAlarmActivity extends FragmentActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ConditionFragment.clean();
         setContentView(R.layout.activity_add_alarm);
     }
     
@@ -28,5 +29,14 @@ public class AddAlarmActivity extends FragmentActivity implements
     public void onFragmentInteraction(Uri uri) {
         // TODO Auto-generated method stub
         
+    }
+    
+    public void onOKClick(View view) {
+        finish();
+    }
+
+    public void onCancelClick(View view) {
+        setResult(RESULT_CANCELED);
+        finish();
     }
 }

@@ -56,14 +56,16 @@
             android:layout_width="90sp"
             android:layout_height="wrap_content"
             android:text="@string/text_ok"
-            style="?android:attr/buttonBarButtonStyle" />
+            style="?android:attr/buttonBarButtonStyle"
+            android:onClick="onOKClick" />
 
         <Button
             android:id="@+id/add_alarm_cancel"
             android:layout_width="90sp"
             android:layout_height="wrap_content"
             android:text="@string/text_cancel"
-            style="?android:attr/buttonBarButtonStyle" />
+            style="?android:attr/buttonBarButtonStyle"
+            android:onClick="onCancelClick" />
     </LinearLayout>
 
 </LinearLayout>
