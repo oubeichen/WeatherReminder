@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string-array name="condition_type">
+        <item>最低气温</item>
+        <item>最高气温</item>
+        <item>防晒指数</item>
+        <item>穿衣指数</item>
+        <item>运动指数</item>
+        <item>洗车指数</item>
+        <item>晾晒指数</item>
+    </string-array>
+
+    <string-array name="qw_type">
+        <item>高于</item>
+        <item>低于</item>
+    </string-array>
+    
+    <string-array name="day_type">
+        <item>今日</item>
+        <item>明日</item>
+        <item>后日</item>
+        <item>三天后</item>
+        <item>四天后</item>
+    </string-array>
+
+    <string-array name="temp_val">
+        <item>-5℃</item>
+        <item>0℃</item>
+        <item>10℃</item>
+        <item>15℃</item>
+        <item>20℃</item>
+        <item>25℃</item>
+        <item>30℃</item>
+        <item>35℃</item>
+    </string-array>
+
+    <string-array name="index_type">
+        <item>为</item>
+        <item>不为</item>
+    </string-array>
+
+    <string-array name="fs_type">
+        <item>弱</item>
+        <item>较弱</item>
+        <item>普通</item>
+        <item>较强</item>
+        <item>很强</item>
+    </string-array>
+
+    <string-array name="cy_type">
+        <item>冷</item>
+        <item>较冷</item>
+        <item>普通</item>
+        <item>较热</item>
+        <item>热</item>
+    </string-array>
+
+    <string-array name="yd_type">
+        <item>不适宜</item>
+        <item>较不适宜</item>
+        <item>基本适宜</item>
+        <item>较适宜</item>
+        <item>适宜</item>
+    </string-array>
+
+    <string-array name="xc_type">
+        <item>不适宜</item>
+        <item>较不适宜</item>
+        <item>基本适宜</item>
+        <item>较适宜</item>
+        <item>适宜</item>
+    </string-array>
+
+    <string-array name="ls_type">
+        <item>不适宜</item>
+        <item>较不适宜</item>
+        <item>基本适宜</item>
+        <item>较适宜</item>
+        <item>适宜</item>
+    </string-array>
+
+</resources>
