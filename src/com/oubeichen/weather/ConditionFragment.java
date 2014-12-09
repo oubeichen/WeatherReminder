@@ -1,7 +1,5 @@
 package com.oubeichen.weather;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -73,12 +71,8 @@ public class ConditionFragment extends Fragment {
      * @return A new instance of fragment ConditionFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ConditionFragment newInstance(String param1, String param2) {
+    public static ConditionFragment newInstance() {
         ConditionFragment fragment = new ConditionFragment(count);
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         
         count++;
         return fragment;

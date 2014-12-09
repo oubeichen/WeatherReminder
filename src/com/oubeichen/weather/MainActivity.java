@@ -133,7 +133,7 @@ public class MainActivity extends SampleActivityBase {
     public void onAddAlarmClick(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, AddAlarmActivity.class);
-        intent.putExtra("Count", 1);
+        intent.putExtra("Count", -1);
         startActivity(intent);
     }
 }
