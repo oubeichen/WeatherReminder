@@ -16,6 +16,8 @@
 
 package com.oubeichen.weather;
 
+import java.util.List;
+
 import com.oubeichen.weather.common.logger.Log;
 import com.oubeichen.weather.common.view.SlidingTabLayout;
 
@@ -29,6 +31,8 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -164,7 +168,7 @@ public class SlidingTabsBasicFragment extends Fragment {
             } else {
                 view = getActivity().getLayoutInflater().inflate(R.layout.remind_pager,
                         container, false);
-                
+                updateAlarmsView(view);
             }
             // Add the newly created View to the ViewPager
             container.addView(view);
@@ -296,5 +300,20 @@ public class SlidingTabsBasicFragment extends Fragment {
         ((TextView) view.findViewById(R.id.living_description5))
                 .setText(WeatherManager.living_des[4]);
         // update living index end
+    }
+    private void updateAlarmsView(View view) {
+        try {
+            // 读存储
+            ListView listView = (ListView)view.findViewById(R.id.remind_list);
+            List<String> list = AlarmManager.loadAlarm();
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                    android.R.layout.simple_expandable_list_item_1, list);
+            listView.setAdapter(adapter);
+            if(list.size() > 0) {
+                ((TextView)view.findViewById(R.id.remind_empty_view))
+                    .setVisibility(TextView.GONE);
+            }
+        } catch (Exception ex) {
+        }
     }
 }

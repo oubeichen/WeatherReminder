@@ -19,5 +19,6 @@
     <string name="alarm_name_hint">Enter name</string>
     <string name="text_ok">OK</string>
     <string name="text_cancel">Cancel</string>
+    <string name="delete_alarm">Delete</string>
 
 </resources>

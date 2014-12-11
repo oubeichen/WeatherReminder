@@ -1,15 +1,7 @@
 package com.oubeichen.weather;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.util.Iterator;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,13 +17,8 @@ public class AddAlarmActivity extends FragmentActivity implements
         OnFragmentInteractionListener{
 
     private int count;
-
-    private String STORAGE_FILENAME = "AlarmStorage.json";
     
     private TextView mNameTextView;
-    
-    private JSONObject root;
-    private JSONArray alarms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,24 +28,7 @@ public class AddAlarmActivity extends FragmentActivity implements
         mNameTextView = (TextView)findViewById(R.id.alarm_name);
 
         count = getIntent().getIntExtra("Count", -1);
-
-        byte[] bbuf = new byte[100000];
-        try {
-            // 读存储
-            FileInputStream fin = openFileInput(STORAGE_FILENAME);
-            int len = fin.read(bbuf);
-            fin.close();
-            root = new JSONObject(new String(bbuf, 0, len));
-            alarms = root.getJSONArray("alarms");
-        } catch (Exception ex) {
-            root = new JSONObject();
-            alarms = new JSONArray();
-            try {
-                root.put("alarms", alarms);
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-            }
-        }
+        AlarmManager.setContext(this);
     }
     
     public void addConditionClick(View view) {
@@ -93,33 +63,8 @@ public class AddAlarmActivity extends FragmentActivity implements
     
     public void onOKClick(View view) {
         try {
-            JSONObject thisalarm;
-            if(count == -1){
-                thisalarm = new JSONObject();
-            } else {
-                thisalarm = alarms.getJSONObject(count);
-            }
-            alarms.put(thisalarm);
-            JSONArray conds = new JSONArray();
-            thisalarm.put("name", mNameTextView.getText());
-            thisalarm.put("conds", conds);
-
             List<Fragment> frags = getSupportFragmentManager().getFragments();
-            Iterator<Fragment> it = frags.iterator();
-            while (it.hasNext()) {
-                ConditionFragment frag = (ConditionFragment) it.next();
-                JSONObject cond = new JSONObject();
-                cond.put("opt1", frag.cond_type.getSelectedItemPosition());
-                cond.put("opt2", frag.cond_type1.getSelectedItemPosition());
-                cond.put("opt3", frag.cond_type2.getSelectedItemPosition());
-                cond.put("opt4", frag.cond_type3.getSelectedItemPosition());
-                conds.put(cond);
-            }
-
-            // 写存储
-            FileOutputStream fout = openFileOutput(STORAGE_FILENAME, Context.MODE_PRIVATE);
-            fout.write(root.toString().getBytes());
-            fout.close();
+            AlarmManager.addAlarm(count, mNameTextView.getText(), frags);
             setResult(RESULT_OK);
             finish();
         } catch (Exception ex) {

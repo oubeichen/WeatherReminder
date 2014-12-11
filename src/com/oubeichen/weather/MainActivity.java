@@ -37,6 +37,8 @@ public class MainActivity extends SampleActivityBase {
     BroadcastMain broadcastMain;
     
     private static Handler handler = new Handler();
+    
+    private static final int ADD_ALARM_REQUEST = 0x01;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +136,15 @@ public class MainActivity extends SampleActivityBase {
         // Do something in response to button
         Intent intent = new Intent(this, AddAlarmActivity.class);
         intent.putExtra("Count", -1);
-        startActivity(intent);
+        startActivityForResult(intent, ADD_ALARM_REQUEST);
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) { 
+        if (requestCode == ADD_ALARM_REQUEST) { 
+            if (resultCode == RESULT_OK) {
+                // refresh ui
+                mFragment.getViewPager().getAdapter().notifyDataSetChanged();
+            }
+        }
+    } 
 }
