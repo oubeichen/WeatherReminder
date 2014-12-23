@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.oubeichen.weather.ConditionFragment.OnFragmentInteractionListener;
 import com.oubeichen.weather.common.logger.Log;
@@ -63,6 +64,11 @@ public class AddAlarmActivity extends FragmentActivity implements
     public void onOKClick(View view) {
         try {
             List<Fragment> frags = getSupportFragmentManager().getFragments();
+            if(frags == null || frags.size() == 0) {
+                Toast toast = Toast.makeText(this, "请添加至少一个条件", Toast.LENGTH_SHORT);
+                toast.show();
+                return;
+            }
             AlarmManager.addAlarm(mCount, mNameTextView.getText(), frags);
             setResult(RESULT_OK);
             finish();
