@@ -11,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.oubeichen.weather.common.logger.Log;
+
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
@@ -20,30 +22,34 @@ public class AlarmManager {
     private static JSONObject root;
     private static JSONArray alarms;
 
-    private static Context mContext;
+    private static Context mContext = ContextUtil.getInstance();
+    
+    private static List<String> mList;
+    private static List<Boolean> mEnabled;
 
     private static boolean isOpen = false;
-
-    public static void setContext(Context context){
-        mContext = context;
-    }
 
     public static List<String> loadAlarm() {
         byte[] bbuf = new byte[100000];
         int len;
-        List<String> list = new ArrayList<String>();
-        list.clear();
+        mList = new ArrayList<String>();
+        mEnabled = new ArrayList<Boolean>();
+        mList.clear();
+        mEnabled.clear();
         try {
             // 读存储
             FileInputStream fin = mContext.openFileInput(STORAGE_FILENAME);
             len = fin.read(bbuf);
             fin.close();
-            root = new JSONObject(new String(bbuf, 0, len));
+            String str = new String(bbuf, 0, len);
+            Log.i("AlarmManager", str);
+            root = new JSONObject(str);
             alarms = root.getJSONArray("alarms");
             len = alarms.length();
             for(int i = 0;i < len; i++) {
                 JSONObject alarm = alarms.getJSONObject(i);
-                list.add(alarm.getString("name"));
+                mList.add(alarm.getString("name"));
+                mEnabled.add(alarm.getBoolean("enabled"));
             }
         } catch (Exception ex) {
             root = new JSONObject();
@@ -55,7 +61,7 @@ public class AlarmManager {
             }
         }
         isOpen = true;
-        return list;
+        return mList;
     }
 
     public static void addAlarm(int count, CharSequence name, List<Fragment> frags)
@@ -73,8 +79,8 @@ public class AlarmManager {
         JSONArray conds = new JSONArray();
         thisalarm.put("name", name);
         thisalarm.put("conds", conds);
-
-
+        thisalarm.put("enabled", true);
+ 
         Iterator<Fragment> it = frags.iterator();
         while (it.hasNext()) {
             ConditionFragment frag = (ConditionFragment) it.next();
@@ -90,5 +96,9 @@ public class AlarmManager {
         FileOutputStream fout = mContext.openFileOutput(STORAGE_FILENAME, Context.MODE_PRIVATE);
         fout.write(root.toString().getBytes());
         fout.close();
+    }
+    
+    public static List<Boolean> getEnabled() {
+        return mEnabled;
     }
 }

@@ -306,8 +306,9 @@ public class SlidingTabsBasicFragment extends Fragment {
             // 读存储
             ListView listView = (ListView)view.findViewById(R.id.remind_list);
             List<String> list = AlarmManager.loadAlarm();
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                    android.R.layout.simple_expandable_list_item_1, list);
+            List<Boolean> enabled = AlarmManager.getEnabled();
+            AlarmAdapter<String> adapter = new AlarmAdapter<String>(getActivity(),
+                    android.R.layout.simple_expandable_list_item_1, list, enabled);
             listView.setAdapter(adapter);
             if(list.size() > 0) {
                 ((TextView)view.findViewById(R.id.remind_empty_view))

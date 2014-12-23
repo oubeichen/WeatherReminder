@@ -16,7 +16,7 @@ import com.oubeichen.weather.common.logger.Log;
 public class AddAlarmActivity extends FragmentActivity implements
         OnFragmentInteractionListener{
 
-    private int count;
+    private int mCount;
     
     private TextView mNameTextView;
 
@@ -27,8 +27,7 @@ public class AddAlarmActivity extends FragmentActivity implements
         setContentView(R.layout.activity_add_alarm);
         mNameTextView = (TextView)findViewById(R.id.alarm_name);
 
-        count = getIntent().getIntExtra("Count", -1);
-        AlarmManager.setContext(this);
+        mCount = getIntent().getIntExtra("Count", -1);
     }
     
     public void addConditionClick(View view) {
@@ -64,7 +63,7 @@ public class AddAlarmActivity extends FragmentActivity implements
     public void onOKClick(View view) {
         try {
             List<Fragment> frags = getSupportFragmentManager().getFragments();
-            AlarmManager.addAlarm(count, mNameTextView.getText(), frags);
+            AlarmManager.addAlarm(mCount, mNameTextView.getText(), frags);
             setResult(RESULT_OK);
             finish();
         } catch (Exception ex) {
