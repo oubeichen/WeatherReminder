@@ -2,8 +2,6 @@ package com.oubeichen.weather;
 
 import java.util.List;
 
-import com.oubeichen.weather.common.activities.SampleActivityBase;
-
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.BroadcastReceiver;
@@ -12,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
@@ -25,7 +24,7 @@ import android.view.View;
  * always visible, on other devices it's visibility is controlled by an item on
  * the Action Bar.
  */
-public class MainActivity extends SampleActivityBase {
+public class MainActivity extends FragmentActivity {
 
     public static final String TAG = "MainActivity";
 
