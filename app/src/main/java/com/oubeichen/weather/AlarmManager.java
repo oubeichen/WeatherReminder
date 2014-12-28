@@ -1,141 +1,146 @@
 package com.oubeichen.weather;
 
+import android.content.Context;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.content.Context;
-import android.support.v4.app.Fragment;
 
 public class AlarmManager {
     private static final String STORAGE_FILENAME = "AlarmStorage.json";
 
-    private static JSONObject mRoot;
-    private static JSONArray mAlarms;
+    private static JSONObject mJSONRoot;
+    private static JSONArray mJSONAlarms;
 
     private static Context mContext = Utils.getInstance();
 
-    private static List<String> mTitle;
-    private static List<Boolean> mEnabled;
+    private static List<Alarm> mAlarms;
 
     private static boolean mIsOpen = false;
 
-    public static List<String> loadAlarm() {
+    public static List<Alarm> loadAlarm() {
         byte[] bbuf = new byte[100000];
         int len;
-        mTitle = new ArrayList<String>();
-        mEnabled = new ArrayList<Boolean>();
+        mAlarms = new ArrayList<Alarm>();
         try {
             // 读存储
             FileInputStream fin = mContext.openFileInput(STORAGE_FILENAME);
             len = fin.read(bbuf);
             fin.close();
             String str = new String(bbuf, 0, len);
-            mRoot = new JSONObject(str);
-            mAlarms = mRoot.getJSONArray("alarms");
+            mJSONRoot = new JSONObject(str);
+            mJSONAlarms = mJSONRoot.getJSONArray("alarms");
             reload();
         } catch (Exception ex) {
-            mRoot = new JSONObject();
-            mAlarms = new JSONArray();
+            mJSONRoot = new JSONObject();
+            mJSONAlarms = new JSONArray();
             try {
-                mRoot.put("alarms", mAlarms);
+                mJSONRoot.put("alarms", mJSONAlarms);
             } catch (JSONException e) {
-                // TODO Auto-generated catch block
             }
         }
         mIsOpen = true;
-        return mTitle;
+        return mAlarms;
     }
 
-    public static void addAlarm(int count, CharSequence name, List<Fragment> frags)
+    public static void addOrEditAlarm(Alarm alarm)
             throws JSONException, IOException {
         if(!mIsOpen){
             loadAlarm();
         }
-        JSONObject thisalarm;
-        if(count == -1){
-            thisalarm = new JSONObject();
-        } else {
-            thisalarm = mAlarms.getJSONObject(count);
+        if(!mAlarms.contains(alarm)){
+            Log.i("AlarmManager", "add alarm, now size " + mAlarms.size() + mIsOpen);
+            mAlarms.add(alarm);
+            Log.i("AlarmManager", "add alarm finished, now size " + mAlarms.size());
         }
-        mAlarms.put(thisalarm);
-        JSONArray conds = new JSONArray();
-        thisalarm.put("name", name);
-        thisalarm.put("conds", conds);
-        thisalarm.put("enabled", true);
- 
-        Iterator<Fragment> it = frags.iterator();
-        if(it.hasNext()){
-            while (it.hasNext()) {
-                ConditionFragment frag = (ConditionFragment) it.next();
-                JSONObject cond = new JSONObject();
-                cond.put("opt1", frag.cond_type.getSelectedItemPosition());
-                cond.put("opt2", frag.cond_type1.getSelectedItemPosition());
-                cond.put("opt3", frag.cond_type2.getSelectedItemPosition());
-                cond.put("opt4", frag.cond_type3.getSelectedItemPosition());
-                conds.put(cond);
-            }
-            save();
-        }
+        save();
     }
 
     private static void reload() throws JSONException {
-        mTitle.clear();
-        mEnabled.clear();
-        int len = mAlarms.length();
+        Log.i("AlarmManager", "reload");
+        mAlarms.clear();
+        int len = mJSONAlarms.length();
         for(int i = 0;i < len; i++) {
-            JSONObject alarm = mAlarms.getJSONObject(i);
-            mTitle.add(alarm.getString("name"));
-            mEnabled.add(alarm.getBoolean("enabled"));
+            JSONObject alarmJSON = mJSONAlarms.getJSONObject(i);
+            JSONArray condsJSON = alarmJSON.getJSONArray("conds");
+            Alarm alarm = new Alarm();
+            alarm.setName(alarmJSON.getString("name"));
+            alarm.setEnabled(alarmJSON.getBoolean("enabled"));
+            ArrayList<Alarm.Cond> conds = new ArrayList<Alarm.Cond>();
+            alarm.setConds(conds);
+            int count = condsJSON.length();
+            for(int j = 0;j < count;j++){
+                JSONObject condJSON = condsJSON.getJSONObject(j);
+                Alarm.Cond cond = alarm.new Cond();
+                cond.setOpt1(condJSON.getInt("opt1"));
+                cond.setOpt2(condJSON.getInt("opt2"));
+                cond.setOpt3(condJSON.getInt("opt3"));
+                cond.setOpt4(condJSON.getInt("opt4"));
+                conds.add(cond);
+            }
+            mAlarms.add(alarm);
         }
     }
 
-    private static void save() throws IOException {
+    private static void save() throws IOException, JSONException {
+        mJSONAlarms = new JSONArray();
+        mJSONRoot.put("alarms", mJSONAlarms);
+
+        for (Alarm alarm : mAlarms) {
+            JSONObject alarmJSON = new JSONObject();
+            mJSONAlarms.put(alarmJSON);
+
+            JSONArray jsonConds = new JSONArray();
+            alarmJSON.put("name", alarm.getName());
+            alarmJSON.put("conds", jsonConds);
+            alarmJSON.put("enabled", alarm.getEnabled());
+
+            for (Alarm.Cond condition : alarm.getConds()) {
+                JSONObject jsonCond = new JSONObject();
+                jsonCond.put("opt1", condition.getOpt1());
+                jsonCond.put("opt2", condition.getOpt2());
+                jsonCond.put("opt3", condition.getOpt3());
+                jsonCond.put("opt4", condition.getOpt4());
+                jsonConds.put(jsonCond);
+            }
+        }
         // 写存储
         FileOutputStream fout = mContext.openFileOutput(STORAGE_FILENAME, Context.MODE_PRIVATE);
-        fout.write(mRoot.toString().getBytes());
+        fout.write(mJSONRoot.toString().getBytes());
         fout.close();
+
     }
 
     public static void delAlarm(int pos){
         try {
-            mAlarms = Utils.RemoveJSONArray(mAlarms, pos);
-            mRoot.put("alarms", mAlarms);
-            reload();
+            mAlarms.remove(pos);
             save();
         } catch (Exception e) {
         }
-    }
-
-    public static List<Boolean> getEnabled() {
-        return mEnabled;
     }
 
     public static void setEnabled(int pos, Boolean enabled) {
         try {
-            JSONObject alarm = mAlarms.getJSONObject(pos);
-            alarm.put("enabled", enabled);
-            mAlarms.put(pos, alarm);
-            reload();
+            mAlarms.get(pos).setEnabled(enabled);
             save();
         } catch (Exception e) {
 
         }
-        
-    }
-
-    public static List<String> getTitle() {
-        return mTitle;
     }
     
-    public static int getCount() {
-        return mTitle.size();
+    public static List<Alarm> getAlarms() {
+        if(!mIsOpen) {
+            return loadAlarm();
+        }
+        return mAlarms;
     }
 
 }

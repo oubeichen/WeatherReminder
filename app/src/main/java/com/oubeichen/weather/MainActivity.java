@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -36,7 +37,7 @@ public class MainActivity extends FragmentActivity {
     
     private static Handler handler = new Handler();
     
-    private static final int ADD_ALARM_REQUEST = 0x01;
+    public static final int ADD_ALARM_REQUEST = 0x01;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class MainActivity extends FragmentActivity {
         //Intent intent = new Intent();
         //intent.setClass(this, RefreshWeatherService.class);
         //stopService(intent);
-        unregisterReceiver(broadcastMain);
+        mLbm.unregisterReceiver(broadcastMain);
         super.onDestroy();
     }
 

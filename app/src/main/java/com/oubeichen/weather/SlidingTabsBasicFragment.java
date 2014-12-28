@@ -21,6 +21,7 @@ import java.util.List;
 import com.oubeichen.weather.common.view.SlidingTabLayout;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,14 +32,10 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-/**
- * A basic sample which shows how to use {@link com.example.android.common.view.SlidingTabLayout}
- * to display a custom {@link ViewPager} title strip which gives continuous feedback to the user
- * when scrolling.
- */
 public class SlidingTabsBasicFragment extends Fragment {
 
     static final String LOG_TAG = "SlidingTabsBasicFragment";
@@ -304,9 +301,17 @@ public class SlidingTabsBasicFragment extends Fragment {
         try {
             // 读存储
             ListView listView = (ListView)view.findViewById(R.id.remind_list);
-            List<String> list = AlarmManager.loadAlarm();
+            List<Alarm> list = AlarmManager.loadAlarm();
             AlarmAdapter adapter = new AlarmAdapter(getActivity());
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(getActivity(), AddAlarmActivity.class);
+                    intent.putExtra("Count", position);
+                    startActivityForResult(intent, MainActivity.ADD_ALARM_REQUEST);
+                }
+            });
             if(list.size() > 0) {
                 ((TextView)view.findViewById(R.id.remind_empty_view))
                     .setVisibility(TextView.GONE);

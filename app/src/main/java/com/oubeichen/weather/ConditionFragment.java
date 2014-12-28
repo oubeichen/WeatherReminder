@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.concurrent.locks.Condition;
+
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment
  * must implement the {@link ConditionFragment.OnFragmentInteractionListener}
@@ -27,7 +29,7 @@ public class ConditionFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    
+
     private String[] condTypes;
     private ArrayAdapter<String> condAdapter;
     private String[] dayTypes;
@@ -60,37 +62,26 @@ public class ConditionFragment extends Fragment {
     public Spinner cond_type2;
     public Spinner cond_type3;
 
-    /**
-     * Use this factory method to create a new instance of this fragment using
-     * the provided parameters.
-     * 
-     * @param param1
-     *            Parameter 1.
-     * @param param2
-     *            Parameter 2.
-     * @return A new instance of fragment ConditionFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ConditionFragment newInstance() {
-        ConditionFragment fragment = new ConditionFragment(count);
-        
+        Bundle bundle = new Bundle();
+        bundle.putInt("count", count);
+        ConditionFragment fragment = new ConditionFragment();
+        fragment.setArguments(bundle);
         count++;
         return fragment;
     }
-
-    public ConditionFragment(int count) {
-        // Required empty public constructor
-        this.number = count;
+    
+    public ConditionFragment(){
+        
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            getArguments().getString(ARG_PARAM1);
-            getArguments().getString(ARG_PARAM2);
+            this.number = getArguments().getInt("count");
         }
-        
+
         condTypes = getResources().getStringArray(R.array.condition_type);
         condAdapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.drop_down_item, condTypes);
@@ -121,7 +112,7 @@ public class ConditionFragment extends Fragment {
         tempVals = getResources().getStringArray(R.array.temp_val);
         tempAdapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.drop_down_item, tempVals);
-        
+
         cond_type = new Spinner(getActivity());
         cond_type1 = new Spinner(getActivity());
         cond_type2 = new Spinner(getActivity());

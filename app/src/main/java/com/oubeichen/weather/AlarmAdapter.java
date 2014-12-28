@@ -45,8 +45,8 @@ public class AlarmAdapter extends BaseAdapter {
         }else {
             holder = (ViewHolder)convertView.getTag();
         }
-        holder.title.setText((String)AlarmManager.getTitle().get(position));
-        holder.onoff.setChecked(AlarmManager.getEnabled().get(position));
+        holder.title.setText((String)AlarmManager.getAlarms().get(position).getName());
+        holder.onoff.setChecked(AlarmManager.getAlarms().get(position).getEnabled());
         
         holder.onoff.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 
@@ -62,7 +62,7 @@ public class AlarmAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-                String taskname = AlarmManager.getTitle().get(pos);
+                String taskname = AlarmManager.getAlarms().get(pos).getName();
                 AlertDialog alert = new AlertDialog.Builder(mContext)
                         .setTitle("提示")
                         .setMessage("确定要删除任务 " + taskname + " 么？")
@@ -93,7 +93,7 @@ public class AlarmAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return AlarmManager.getCount();
+        return AlarmManager.getAlarms().size();
     }
     @Override
     public Object getItem(int arg0) {
