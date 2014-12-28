@@ -1,6 +1,8 @@
 package com.oubeichen.weather;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,10 +22,12 @@ public class AlarmAdapter extends BaseAdapter {
         public ImageView delete;
     }
 
+    private Context mContext;
     private final LayoutInflater mInflater;
     private AlarmAdapter thisAdapter = this;
     public AlarmAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
+        mContext = context;
         // TODO Auto-generated constructor stub
     }
 
@@ -58,8 +62,30 @@ public class AlarmAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-                AlarmManager.delAlarm(pos);
-                thisAdapter.notifyDataSetChanged();
+                String taskname = AlarmManager.getTitle().get(pos);
+                AlertDialog alert = new AlertDialog.Builder(mContext)
+                        .setTitle("提示")
+                        .setMessage("确定要删除任务 " + taskname + " 么？")
+                        .setPositiveButton("确定",
+                                new DialogInterface.OnClickListener() {// 设置确定按钮
+                                    @Override
+                                    // 处理确定按钮点击事件
+                                    public void onClick(DialogInterface dialog,
+                                            int which) {
+                                        AlarmManager.delAlarm(pos);
+                                        thisAdapter.notifyDataSetChanged();
+                                    }
+                                })
+                        .setNegativeButton("取消",
+                                new DialogInterface.OnClickListener() {// 设置取消按钮
+                                    @Override
+                                    // 取消按钮点击事件
+                                    public void onClick(DialogInterface dialog,
+                                            int which) {
+                                        dialog.cancel();
+                                    }
+                                }).create();
+                alert.show();
             }
         });
         return convertView;

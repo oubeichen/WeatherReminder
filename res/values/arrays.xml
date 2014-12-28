@@ -40,40 +40,44 @@
     </string-array>
 
     <string-array name="fs_type">
+        <item>最弱</item>
         <item>弱</item>
         <item>较弱</item>
-        <item>普通</item>
+        <item>中等</item>
         <item>较强</item>
+        <item>强</item>
         <item>很强</item>
     </string-array>
 
     <string-array name="cy_type">
-        <item>冷</item>
+        <item>寒冷</item>
         <item>较冷</item>
         <item>普通</item>
-        <item>较热</item>
+        <item>暖</item>
         <item>热</item>
+        <item>较舒适</item>
+        <item>舒适</item>
     </string-array>
 
     <string-array name="yd_type">
-        <item>不适宜</item>
-        <item>较不适宜</item>
+        <item>不太适宜</item>
+        <item>较不宜</item>
         <item>基本适宜</item>
         <item>较适宜</item>
         <item>适宜</item>
     </string-array>
 
     <string-array name="xc_type">
-        <item>不适宜</item>
-        <item>较不适宜</item>
+        <item>不太适宜</item>
+        <item>较不宜</item>
         <item>基本适宜</item>
         <item>较适宜</item>
         <item>适宜</item>
     </string-array>
 
     <string-array name="ls_type">
-        <item>不适宜</item>
-        <item>较不适宜</item>
+        <item>不太适宜</item>
+        <item>较不宜</item>
         <item>基本适宜</item>
         <item>较适宜</item>
         <item>适宜</item>

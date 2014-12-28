@@ -178,14 +178,19 @@ public class ConditionFragment extends Fragment {
                     break;
                 case 2:
                     tp2.setAdapter(fsAdapter);
+                    break;
                 case 3:
                     tp2.setAdapter(cyAdapter);
+                    break;
                 case 4:
                     tp2.setAdapter(ydAdapter);
+                    break;
                 case 5:
                     tp2.setAdapter(xcAdapter);
+                    break;
                 case 6:
                     tp2.setAdapter(lsAdapter);
+                    break;
                 }
             }
 
