@@ -10,14 +10,13 @@ import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.oubeichen.weather.common.logger.Log;
-
 import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 public class RefreshWeatherService extends Service {
     

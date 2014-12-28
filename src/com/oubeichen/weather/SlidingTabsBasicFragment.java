@@ -18,7 +18,6 @@ package com.oubeichen.weather;
 
 import java.util.List;
 
-import com.oubeichen.weather.common.logger.Log;
 import com.oubeichen.weather.common.view.SlidingTabLayout;
 
 import android.app.Activity;
@@ -27,6 +26,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;

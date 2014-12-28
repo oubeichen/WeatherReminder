@@ -3,10 +3,6 @@ package com.oubeichen.weather;
 import java.util.List;
 
 import com.oubeichen.weather.common.activities.SampleActivityBase;
-import com.oubeichen.weather.common.logger.Log;
-import com.oubeichen.weather.common.logger.LogFragment;
-import com.oubeichen.weather.common.logger.LogWrapper;
-import com.oubeichen.weather.common.logger.MessageOnlyLogFilter;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
@@ -69,27 +65,6 @@ public class MainActivity extends SampleActivityBase {
         filter.addAction(RefreshWeatherService.BROADCAST_REFRESH);
         mLbm = LocalBroadcastManager.getInstance(this);
         mLbm.registerReceiver(broadcastMain, filter);
-    }
-
-    /** Create a chain of targets that will receive log data */
-    @Override
-    public void initializeLogging() {
-        // Wraps Android's native log framework.
-        LogWrapper logWrapper = new LogWrapper();
-        // Using Log, front-end to the logging chain, emulates android.util.log
-        // method signatures.
-        Log.setLogNode(logWrapper);
-
-        // Filter strips out everything except the message text.
-        MessageOnlyLogFilter msgFilter = new MessageOnlyLogFilter();
-        logWrapper.setNext(msgFilter);
-
-        // On screen logging via a fragment with a TextView.
-        LogFragment logFragment = (LogFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.log_fragment);
-        msgFilter.setNext(logFragment.getLogView());
-
-        Log.i(TAG, "Ready");
     }
 
     public void refresh(View v) {

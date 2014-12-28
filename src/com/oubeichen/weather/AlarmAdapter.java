@@ -1,7 +1,5 @@
 package com.oubeichen.weather;
 
-import com.oubeichen.weather.common.logger.Log;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +50,6 @@ public class AlarmAdapter extends BaseAdapter {
             public void onCheckedChanged(CompoundButton compoundButton,
                     boolean checked) {
                 AlarmManager.setEnabled(pos, checked);
-                Log.i("AlarmAdapter", "set " + pos + " " + checked);
                 thisAdapter.notifyDataSetChanged();
             }
             

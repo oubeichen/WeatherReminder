@@ -20,20 +20,6 @@
       android:layout_height="match_parent"
       android:id="@+id/sample_main_layout">
 
-    <ViewAnimator
-          android:id="@+id/sample_output"
-          android:layout_width="match_parent"
-          android:layout_height="0px"
-          android:layout_weight="0.5">
-
-        <fragment
-              android:name="com.oubeichen.weather.common.logger.LogFragment"
-              android:id="@+id/log_fragment"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent" />
-
-    </ViewAnimator>
-
     <View
           android:layout_width="match_parent"
           android:layout_height="1dp"

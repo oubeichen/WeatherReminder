@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.oubeichen.weather.ConditionFragment.OnFragmentInteractionListener;
-import com.oubeichen.weather.common.logger.Log;
 
 public class AddAlarmActivity extends FragmentActivity implements
         OnFragmentInteractionListener{
@@ -37,7 +36,6 @@ public class AddAlarmActivity extends FragmentActivity implements
         Fragment frag = ConditionFragment.newInstance();
         transaction.add(R.id.condition_list, frag,
                 "Frag" + ConditionFragment.getCount());
-        Log.i("Fragment", "Add Frag" + ConditionFragment.getCount());
         transaction.commit();
     }
 
@@ -49,7 +47,6 @@ public class AddAlarmActivity extends FragmentActivity implements
                 .beginTransaction();
         Fragment frag = getSupportFragmentManager()
                 .findFragmentByTag("Frag" + ConditionFragment.getCount());
-        Log.i("Fragment", "Del Frag" + ConditionFragment.getCount());
         transaction.remove(frag);
         transaction.commit();
         ConditionFragment.del();

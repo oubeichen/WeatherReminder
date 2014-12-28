@@ -10,8 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.oubeichen.weather.common.logger.Log;
-
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
@@ -93,7 +91,6 @@ public class AlarmManager {
         int len = mAlarms.length();
         for(int i = 0;i < len; i++) {
             JSONObject alarm = mAlarms.getJSONObject(i);
-            Log.i("AlarmManager", alarm.toString());
             mTitle.add(alarm.getString("name"));
             mEnabled.add(alarm.getBoolean("enabled"));
         }
@@ -113,7 +110,6 @@ public class AlarmManager {
             reload();
             save();
         } catch (Exception e) {
-            Log.i("AlarmManager", "Fail to delete alarm.");
         }
     }
 
