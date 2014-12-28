@@ -17,6 +17,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 
 /**
@@ -35,6 +36,8 @@ public class MainActivity extends SampleActivityBase {
     private SlidingTabsBasicFragment mFragment;
 
     BroadcastMain broadcastMain;
+    
+    private LocalBroadcastManager mLbm;
     
     private static Handler handler = new Handler();
     
@@ -64,7 +67,8 @@ public class MainActivity extends SampleActivityBase {
         broadcastMain = new BroadcastMain();
         IntentFilter filter = new IntentFilter();
         filter.addAction(RefreshWeatherService.BROADCAST_REFRESH);
-        registerReceiver(broadcastMain, filter);
+        mLbm = LocalBroadcastManager.getInstance(this);
+        mLbm.registerReceiver(broadcastMain, filter);
     }
 
     /** Create a chain of targets that will receive log data */

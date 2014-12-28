@@ -17,6 +17,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 
 public class RefreshWeatherService extends Service {
     
@@ -59,9 +60,8 @@ public class RefreshWeatherService extends Service {
                 SharedPreferences storage = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
                 WeatherManager.setWeather(jsonString, storage);
                 // 发送广播
-                Intent intent = new Intent();
-                intent.setAction(BROADCAST_REFRESH);
-                sendBroadcast(intent);
+                LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(Utils.getInstance());
+                lbm.sendBroadcast(new Intent(BROADCAST_REFRESH));
             }
         }, 0, 4 * 3600 * 1000);// 每隔4小时
 
