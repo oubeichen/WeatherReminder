@@ -72,14 +72,14 @@
             <TextView
                 android:id="@+id/temp_day1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="day"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/weather_day1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="day wea"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -101,14 +101,14 @@
             <TextView
                 android:id="@+id/temp_day2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="day"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/weather_day2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="day wea"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -130,14 +130,14 @@
             <TextView
                 android:id="@+id/temp_day3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="day"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/weather_day3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="day wea"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -159,14 +159,14 @@
             <TextView
                 android:id="@+id/temp_day4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="day"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/weather_day4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="day wea"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -188,14 +188,14 @@
             <TextView
                 android:id="@+id/temp_day5"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="day"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/weather_day5"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="day wea"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
