@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 
 /**
@@ -125,5 +126,12 @@ public class MainActivity extends FragmentActivity {
                 mFragment.getViewPager().getAdapter().notifyDataSetChanged();
             }
         }
-    } 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 }

@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -102,7 +103,7 @@ public class SlidingTabsBasicFragment extends Fragment {
          */
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
 
         /**
@@ -129,8 +130,6 @@ public class SlidingTabsBasicFragment extends Fragment {
                     return getResources().getString(R.string.clothes_pager_title);
                 case 2:
                     return getResources().getString(R.string.reminder_pager_title);
-                case 3:
-                    return getResources().getString(R.string.settings_pager_title);
                 default:
                     return getResources().getString(R.string.weather_pager_title);
             }
@@ -161,13 +160,10 @@ public class SlidingTabsBasicFragment extends Fragment {
                 if(WeatherManager.loadWeather(storage)){
                     updateClothesView(view);
                 }
-            } else if(position == 2) {
+            } else {
                 view = getActivity().getLayoutInflater().inflate(R.layout.remind_pager,
                         container, false);
                 updateAlarmsView(view);
-            } else {
-                view = getActivity().getLayoutInflater().inflate(R.layout.settings_pager,
-                        container, false);
             }
             // Add the newly created View to the ViewPager
             container.addView(view);

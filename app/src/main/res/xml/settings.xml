@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <PreferenceCategory android:title="Category 1">
+        <ListPreference
+            android:dialogTitle="请选择一项"
+            android:entries="@array/cities"
+            android:entryValues="@array/cities"
+            android:key="list_preferenc"
+            android:summary="请选择您所在的城市"
+            android:title="所在城市" />
+    </PreferenceCategory>
+</PreferenceScreen>
