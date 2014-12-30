@@ -304,14 +304,7 @@ public class SlidingTabsBasicFragment extends Fragment {
             List<Alarm> list = AlarmManager.loadAlarm();
             AlarmAdapter adapter = new AlarmAdapter(getActivity());
             listView.setAdapter(adapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(getActivity(), AddAlarmActivity.class);
-                    intent.putExtra("Count", position);
-                    startActivityForResult(intent, MainActivity.ADD_ALARM_REQUEST);
-                }
-            });
+
             if(list.size() > 0) {
                 ((TextView)view.findViewById(R.id.remind_empty_view))
                     .setVisibility(TextView.GONE);

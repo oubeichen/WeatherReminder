@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,9 +79,6 @@ public class ConditionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            this.number = getArguments().getInt("count");
-        }
 
         condTypes = getResources().getStringArray(R.array.condition_type);
         condAdapter = new ArrayAdapter<String>(getActivity(),
@@ -117,6 +115,10 @@ public class ConditionFragment extends Fragment {
         cond_type1 = new Spinner(getActivity());
         cond_type2 = new Spinner(getActivity());
         cond_type3 = new Spinner(getActivity());
+
+        if (getArguments() != null) {
+            this.number = getArguments().getInt("count");
+        }
     }
 
     @Override
@@ -191,7 +193,16 @@ public class ConditionFragment extends Fragment {
             }
             
         });
-        
+        if (getArguments() != null) {
+            Bundle bundle = getArguments();
+            if (bundle.getInt("opt1", -1) != -1) {
+                Log.i("condition", "set opts" + bundle.getInt("opt1"));
+                cond_type.setSelection(bundle.getInt("opt1"));
+                cond_type1.setSelection(bundle.getInt("opt2"));
+                cond_type2.setSelection(bundle.getInt("opt3"));
+                cond_type3.setSelection(bundle.getInt("opt4"));
+            }
+        }
         return layout_out;
     }
 

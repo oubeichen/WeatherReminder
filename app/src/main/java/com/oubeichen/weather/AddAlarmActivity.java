@@ -21,6 +21,8 @@ public class AddAlarmActivity extends FragmentActivity implements
 
     private int mCount;
     
+    private Alarm mAlarm;
+    
     private TextView mNameTextView;
 
     @Override
@@ -31,6 +33,26 @@ public class AddAlarmActivity extends FragmentActivity implements
         mNameTextView = (TextView)findViewById(R.id.alarm_name);
 
         mCount = getIntent().getIntExtra("Count", -1);
+        
+        if(mCount != -1) {
+            mAlarm = AlarmManager.getAlarms().get(mCount);
+            mNameTextView.setText(mAlarm.getName());
+            FragmentTransaction transaction = getSupportFragmentManager()
+                    .beginTransaction();
+            for(Alarm.Cond cond : mAlarm.getConds()) {
+                Fragment frag = ConditionFragment.newInstance();
+                Bundle bundle = frag.getArguments();
+                Log.i("addalarm", "opt1" + cond.getOpt1());
+                bundle.putInt("opt1", cond.getOpt1());
+                bundle.putInt("opt2", cond.getOpt2());
+                bundle.putInt("opt3", cond.getOpt3());
+                bundle.putInt("opt4", cond.getOpt4());
+                frag.setArguments(bundle);
+                transaction.add(R.id.condition_list, frag,
+                        "Frag" + ConditionFragment.getCount());
+            }
+            transaction.commit();
+        }
     }
     
     public void addConditionClick(View view) {
@@ -69,23 +91,25 @@ public class AddAlarmActivity extends FragmentActivity implements
                 toast.show();
                 return;
             }
-            Alarm alarm = new Alarm();
-            alarm.setEnabled(true);
-            alarm.setName(mNameTextView.getText().toString());
+            if(mAlarm == null){
+                mAlarm = new Alarm();
+            }
+            mAlarm.setEnabled(true);
+            mAlarm.setName(mNameTextView.getText().toString());
             List<Alarm.Cond> conds = new ArrayList<Alarm.Cond>();
-            alarm.setConds(conds);
+            mAlarm.setConds(conds);
 
             for(int i = 1;i <= fragCount;i++) {
                 ConditionFragment frag = (ConditionFragment)getSupportFragmentManager()
                         .findFragmentByTag("Frag" + i);
-                Alarm.Cond cond = alarm.new Cond();
+                Alarm.Cond cond = mAlarm.new Cond();
                 cond.setOpt1(frag.cond_type.getSelectedItemPosition());
                 cond.setOpt2(frag.cond_type1.getSelectedItemPosition());
                 cond.setOpt3(frag.cond_type2.getSelectedItemPosition());
                 cond.setOpt4(frag.cond_type3.getSelectedItemPosition());
                 conds.add(cond);
             }
-            AlarmManager.addOrEditAlarm(alarm);
+            AlarmManager.addOrEditAlarm(mAlarm);
             setResult(RESULT_OK);
             finish();
         } catch (Exception ex) {
