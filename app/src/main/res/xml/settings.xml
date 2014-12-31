@@ -2,13 +2,29 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <PreferenceCategory android:title="Category 1">
-        <ListPreference
-            android:dialogTitle="请选择一项"
-            android:entries="@array/cities"
-            android:entryValues="@array/cities"
-            android:key="list_preferenc"
-            android:summary="请选择您所在的城市"
-            android:title="所在城市" />
+    <ListPreference
+        android:dialogTitle="请选择一项"
+        android:entries="@array/cities"
+        android:entryValues="@array/cities_value"
+        android:key="preference_city"
+        android:summary="请选择您所在的城市"
+        android:title="所在城市" />
+    <ListPreference
+        android:dialogTitle="请选择一项"
+        android:entries="@array/refresh_interval"
+        android:entryValues="@array/refresh_interval_value"
+        android:key="preference_refresh_interval"
+        android:summary="请选择自动刷新天气的频率"
+        android:title="刷新频率" />
+    <PreferenceCategory
+        android:title="关于">
+        <Preference
+            android:summary="0.1"
+            android:title="版本"
+            android:persistent="false"/>
+        <Preference
+            android:summary="计算机系 欧北辰"
+            android:title="作者"
+            android:persistent="false"/>
     </PreferenceCategory>
 </PreferenceScreen>

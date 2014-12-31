@@ -11,7 +11,7 @@
     <string name="weather_pager_title">天气</string>
     <string name="clothes_pager_title">指数</string>
     <string name="reminder_pager_title">提醒</string>
-    <string name="settings_pager_title">设置</string>
+    <string name="settings_title">设置</string>
     <string name="connection_error">连接失败</string>
     <string name="day_title">今日白天</string>
     <string name="night_title">今日夜晚</string>

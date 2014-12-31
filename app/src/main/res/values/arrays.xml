@@ -106,10 +106,10 @@
         <item>1天</item>
     </string-array>
 
-    <integer-array name="refresh_interval_value">
+    <string-array name="refresh_interval_value">
         <item>10800000</item>
         <item>21600000</item>
         <item>43200000</item>
         <item>86400000</item>
-    </integer-array>
+    </string-array>
 </resources>
