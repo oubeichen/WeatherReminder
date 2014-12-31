@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.media.audiofx.BassBoost;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
@@ -45,6 +46,9 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        // 设置Prefrence的默认值
+        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager()

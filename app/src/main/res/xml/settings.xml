@@ -3,19 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ListPreference
-        android:dialogTitle="请选择一项"
+        android:dialogTitle="@string/select_text"
         android:entries="@array/cities"
         android:entryValues="@array/cities_value"
+        android:defaultValue="@string/preference_city_default"
         android:key="preference_city"
-        android:summary="请选择您所在的城市"
-        android:title="所在城市" />
+        android:title="@string/preference_city_title" />
     <ListPreference
-        android:dialogTitle="请选择一项"
+        android:dialogTitle="@string/select_text"
         android:entries="@array/refresh_interval"
         android:entryValues="@array/refresh_interval_value"
+        android:defaultValue="@string/preference_refresh_interval_default"
         android:key="preference_refresh_interval"
-        android:summary="请选择自动刷新天气的频率"
-        android:title="刷新频率" />
+        android:title="@string/preference_refresh_interval_title" />
     <PreferenceCategory
         android:title="关于">
         <Preference

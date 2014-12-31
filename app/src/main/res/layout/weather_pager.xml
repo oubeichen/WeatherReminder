@@ -8,10 +8,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="25dp"
-        android:text="day"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="50sp" />
 
@@ -20,9 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/temp_day"
+        android:layout_alignEnd="@+id/temp_day"
         android:layout_below="@+id/temp_day"
         android:layout_marginTop="5dp"
-        android:text="day wea"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -30,9 +31,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/weather_day"
+        android:layout_alignEnd="@+id/weather_day"
         android:layout_below="@+id/weather_day"
         android:layout_marginTop="5dp"
-        android:text="wind_day"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -40,9 +41,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/refresh_button"
+        android:layout_alignEnd="@+id/refresh_button"
         android:layout_below="@+id/wind_day"
         android:layout_marginTop="20dp"
-        android:text="update_time"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Button
@@ -50,10 +51,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp"
         android:onClick="refresh"
-        android:text="Refresh" />
+        android:text="@string/refresh_button_text" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -73,21 +76,18 @@
                 android:id="@+id/temp_day1"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="day"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/weather_day1"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:text="day wea"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/date1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="date"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 
@@ -102,21 +102,18 @@
                 android:id="@+id/temp_day2"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="day"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/weather_day2"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:text="day wea"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/date2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="date"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 
@@ -131,21 +128,18 @@
                 android:id="@+id/temp_day3"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="day"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/weather_day3"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:text="day wea"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/date3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="date"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 
@@ -160,21 +154,18 @@
                 android:id="@+id/temp_day4"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="day"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/weather_day4"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:text="day wea"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/date4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="date"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 
@@ -189,21 +180,18 @@
                 android:id="@+id/temp_day5"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="day"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/weather_day5"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:text="day wea"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/date5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="date"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
     </LinearLayout>
