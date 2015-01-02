@@ -217,39 +217,39 @@ public class SlidingTabsBasicFragment extends Fragment {
 
         // update forecast
         ((TextView) view.findViewById(R.id.temp_day1))
-                .setText(WeatherManager.temp_day1);
+                .setText(WeatherManager.temp_day[1]);
         ((TextView) view.findViewById(R.id.weather_day1))
-                .setText(WeatherManager.weather_day1);
+                .setText(WeatherManager.weather_day[1]);
         ((TextView) view.findViewById(R.id.date1))
-                .setText(WeatherManager.date_day1);
+                .setText(WeatherManager.date_day[1]);
         // day1
         ((TextView) view.findViewById(R.id.temp_day2))
-                .setText(WeatherManager.temp_day2);
+                .setText(WeatherManager.temp_day[2]);
         ((TextView) view.findViewById(R.id.weather_day2))
-                .setText(WeatherManager.weather_day2);
+                .setText(WeatherManager.weather_day[2]);
         ((TextView) view.findViewById(R.id.date2))
-                .setText(WeatherManager.date_day2);
+                .setText(WeatherManager.date_day[2]);
         // day2
         ((TextView) view.findViewById(R.id.temp_day3))
-                .setText(WeatherManager.temp_day3);
+                .setText(WeatherManager.temp_day[3]);
         ((TextView) view.findViewById(R.id.weather_day3))
-                .setText(WeatherManager.weather_day3);
+                .setText(WeatherManager.weather_day[3]);
         ((TextView) view.findViewById(R.id.date3))
-                .setText(WeatherManager.date_day3);
+                .setText(WeatherManager.date_day[3]);
         // day3
         ((TextView) view.findViewById(R.id.temp_day4))
-                .setText(WeatherManager.temp_day4);
+                .setText(WeatherManager.temp_day[4]);
         ((TextView) view.findViewById(R.id.weather_day4))
-                .setText(WeatherManager.weather_day4);
+                .setText(WeatherManager.weather_day[4]);
         ((TextView) view.findViewById(R.id.date4))
-                .setText(WeatherManager.date_day4);
+                .setText(WeatherManager.date_day[4]);
         // day4
         ((TextView) view.findViewById(R.id.temp_day5))
-                .setText(WeatherManager.temp_day5);
+                .setText(WeatherManager.temp_day[5]);
         ((TextView) view.findViewById(R.id.weather_day5))
-                .setText(WeatherManager.weather_day5);
+                .setText(WeatherManager.weather_day[5]);
         ((TextView) view.findViewById(R.id.date5))
-                .setText(WeatherManager.date_day5);
+                .setText(WeatherManager.date_day[5]);
     }
     
     public static void updateClothesView(View view){
