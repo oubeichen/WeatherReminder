@@ -143,4 +143,18 @@ public class AlarmManager {
         return mAlarms;
     }
 
+    /**
+     * * 检查Alarms是否符合触发条件
+     * @return 符合条件的Alarms
+     */
+    public static List<Alarm> checkAlarms() {
+        if(!mIsOpen){
+            loadAlarm();
+        }
+        List<Alarm> alarms = new ArrayList<Alarm>();
+        for(Alarm alarm:mAlarms) {
+            
+        }
+        return alarms;
+    }
 }

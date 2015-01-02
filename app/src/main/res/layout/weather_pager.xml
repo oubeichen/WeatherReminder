@@ -13,6 +13,7 @@
         android:layout_marginLeft="28dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="25dp"
+        android:text="@string/error_fetch_text"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="50sp" />
 
@@ -37,6 +38,16 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
+        android:id="@+id/date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/wind_day"
+        android:layout_alignEnd="@+id/wind_day"
+        android:layout_below="@+id/wind_day"
+        android:layout_marginTop="5dp"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
         android:id="@+id/update_time_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,6 +55,16 @@
         android:layout_alignEnd="@+id/refresh_button"
         android:layout_below="@+id/wind_day"
         android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/cityname_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/update_time_text"
+        android:layout_alignEnd="@+id/update_time_text"
+        android:layout_below="@+id/update_time_text"
+        android:layout_marginTop="5dp"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Button
@@ -62,7 +83,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:baselineAligned="false"
-        android:layout_below="@+id/update_time_text"
+        android:layout_below="@+id/cityname_text"
         android:orientation="horizontal" >
 
         <LinearLayout

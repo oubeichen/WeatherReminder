@@ -7,6 +7,7 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,6 +16,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -26,9 +28,11 @@ public class WeatherService extends Service {
 
     public static final String BROADCAST_REFRESH = "com.oubeichen.weather.refresh";
 
-    public static final String SOURCE_URL = "http://weatherapi.market.xiaomi.com/wtr-v2/weather?cityId=101190101";
+    public static final String SOURCE_URL = "http://weatherapi.market.xiaomi.com/wtr-v2/weather?cityId=";
 
     private Timer timer;
+
+    SharedPreferences mSharedPrefs;
 
     public WeatherService() {
     }
@@ -42,6 +46,10 @@ public class WeatherService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "service started");
+        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        
+        int refresh_interval = Integer.valueOf(mSharedPrefs.getString("preference_refresh_interval", "10800000"));
+        Log.i(TAG, "refresh_interval:" + refresh_interval);
         // updateWeather();
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -50,8 +58,22 @@ public class WeatherService extends Service {
                 // 定时更新
                 String jsonString;
                 try {
-                    jsonString = loadFromNetwork(SOURCE_URL);
+                    int cityid;
+                    String city = mSharedPrefs.getString("preference_city", "nj");
+                    if(city.equals("bj")) {
+                        cityid = 101010100;
+                    } else if(city.equals("sh")) {
+                        cityid = 101020100;
+                    } else if(city.equals("gz")) {
+                        cityid = 101280101;
+                    } else if(city.equals("nj")) {
+                        cityid = 101190101;
+                    } else {
+                        cityid = 101190101;
+                    }
+                    jsonString = loadFromNetwork(SOURCE_URL + cityid);
                 } catch (IOException e) {
+                    e.printStackTrace();
                     Log.i(TAG, "get weather error");
                     return;
                 }
@@ -61,8 +83,10 @@ public class WeatherService extends Service {
                 // 发送广播
                 LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(Utils.getInstance());
                 lbm.sendBroadcast(new Intent(BROADCAST_REFRESH));
+                
+                List<Alarm> alarms = AlarmManager.checkAlarms();
             }
-        }, 0, 4 * 3600 * 1000);// 每隔4小时
+        }, 0, refresh_interval);// 每隔4小时
 
         return super.onStartCommand(intent, flags, startId);
     }

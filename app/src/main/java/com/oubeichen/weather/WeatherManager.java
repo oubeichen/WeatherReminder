@@ -43,6 +43,7 @@ public class WeatherManager
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
             SimpleDateFormat sdf2 = new SimpleDateFormat("MM月dd日");
             // today
+            date_text = forecast.getString("date_y");
             Date date = sdf.parse(today.getString("date"));
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
@@ -63,7 +64,9 @@ public class WeatherManager
                 living_index[i] = index.getString("index");
                 living_des[i] = index.getString("details");
             }
-            
+
+            // city name
+            cityname = forecast.getString("city");
             isOpen = true;
             storeWeather(storage);
         }
@@ -86,6 +89,8 @@ public class WeatherManager
         editor.putString("wind_direction_today", wind_direction_today);
         editor.putString("wind_scale_today", wind_scale_today);
         editor.putString("update_time", update_time);
+        editor.putString("cityname", cityname);
+        editor.putString("date_text", date_text);
         // 保存近五天天气
         for(int i = 1;i <= 5;i++) {
             editor.putString("temp_day" + i, temp_day[i]);
@@ -115,6 +120,8 @@ public class WeatherManager
         wind_direction_today = storage.getString("wind_direction_today", "");
         wind_scale_today = storage.getString("wind_scale_today", "");
         update_time = storage.getString("update_time", "");
+        cityname = storage.getString("cityname", "");
+        date_text = storage.getString("date_text", "");
         
         // 获取近五天天气
         for(int i = 1;i <= 5;i++) {
@@ -138,6 +145,8 @@ public class WeatherManager
     public static String wind_direction_today;
     public static String wind_scale_today;
     public static String update_time;
+    public static String cityname;
+    public static String date_text;
     
     public static String[] temp_day = new String[6];
     public static String[] weather_day = new String[6];

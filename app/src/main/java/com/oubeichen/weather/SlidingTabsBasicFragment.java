@@ -211,9 +211,16 @@ public class SlidingTabsBasicFragment extends Fragment {
                 .setText(WeatherManager.wind_direction_today
                         + WeatherManager.wind_scale_today);
 
+        // update date and time
+        ((TextView) view.findViewById(R.id.date_text))
+                .setText(WeatherManager.date_text);
         ((TextView) view.findViewById(R.id.update_time_text))
-                .setText(WeatherManager.update_time);
+                .setText("更新时间：" + WeatherManager.update_time);
         // update realtime end
+
+        //show cityname
+        ((TextView) view.findViewById(R.id.cityname_text))
+                .setText(WeatherManager.cityname);
 
         // update forecast
         ((TextView) view.findViewById(R.id.temp_day1))
