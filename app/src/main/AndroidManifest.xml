@@ -55,7 +55,7 @@
         </activity>
 
         <service
-            android:name=".RefreshWeatherService"
+            android:name=".WeatherService"
             android:enabled="true"
             android:exported="true" >
         </service>

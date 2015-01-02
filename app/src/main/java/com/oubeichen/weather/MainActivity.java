@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.media.audiofx.BassBoost;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -59,23 +58,30 @@ public class MainActivity extends FragmentActivity {
         }
 
         // log whether the service is running
-        if(isServiceRunning(this, RefreshWeatherService.class.getName())){
+        if(isServiceRunning(this, WeatherService.class.getName())){
             System.out.println("service is running now");
         } else {
-            System.out.println("service is not running");
+            System.out.println("service is not running, restarting...");
+            Intent intent = new Intent(this, WeatherService.class);
+            startService(intent);
         }
         
-        // receive the broadcast from the RefreshWeatherService
+        // receive the broadcast from the WeatherService
         broadcastMain = new BroadcastMain();
         IntentFilter filter = new IntentFilter();
-        filter.addAction(RefreshWeatherService.BROADCAST_REFRESH);
+        filter.addAction(WeatherService.BROADCAST_REFRESH);
         mLbm = LocalBroadcastManager.getInstance(this);
         mLbm.registerReceiver(broadcastMain, filter);
+
+        Intent intent = new Intent();
+        intent.setClass(this, WeatherService.class);
+        stopService(intent);
+        startService(intent);
     }
 
     public void refresh(View v) {
         Intent intent = new Intent();
-        intent.setClass(this, RefreshWeatherService.class);
+        intent.setClass(this, WeatherService.class);
         stopService(intent);
         startService(intent);
     }
@@ -83,7 +89,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         //Intent intent = new Intent();
-        //intent.setClass(this, RefreshWeatherService.class);
+        //intent.setClass(this, WeatherService.class);
         //stopService(intent);
         mLbm.unregisterReceiver(broadcastMain);
         super.onDestroy();

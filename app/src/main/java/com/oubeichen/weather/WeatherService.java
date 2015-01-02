@@ -18,9 +18,9 @@ import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-public class RefreshWeatherService extends Service {
+public class WeatherService extends Service {
     
-    public static final String TAG = "RefreshWeatherService";
+    public static final String TAG = "WeatherService";
     
     public static final String PREFS_NAME = "WeatherStorage";
 
@@ -30,7 +30,7 @@ public class RefreshWeatherService extends Service {
 
     private Timer timer;
 
-    public RefreshWeatherService() {
+    public WeatherService() {
     }
 
     @Override
