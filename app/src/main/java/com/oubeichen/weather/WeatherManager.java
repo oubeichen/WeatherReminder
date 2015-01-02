@@ -47,9 +47,9 @@ public class WeatherManager
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
             
-            for(int i = 0;i < 5;i++) {
-                temp_day[i] = forecast.getString("temp" + (i + 1));
-                weather_day[i] = forecast.getString("weather" + (i + 1));
+            for(int i = 1;i <= 5;i++) {
+                temp_day[i] = forecast.getString("temp" + i);
+                weather_day[i] = forecast.getString("weather" + i);
                 date_day[i] = sdf2.format(calendar.getTime());
                 calendar.add(Calendar.DATE, 1);
             }
