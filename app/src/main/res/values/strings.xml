@@ -7,7 +7,7 @@
     <string name="del_button_text">删除条件</string>
     <string name="no_remind">目前没有提醒</string>
     <string name="title_activity_add_alarm">新建提醒</string>
-    <string name="alarm_name">名称:</string>
+    <string name="alarm_name">描述</string>
     <string name="action_settings">设置</string>
     <string name="weather_pager_title">天气</string>
     <string name="clothes_pager_title">指数</string>
@@ -16,7 +16,7 @@
     <string name="connection_error">连接失败</string>
     <string name="day_title">今日白天</string>
     <string name="night_title">今日夜晚</string>
-    <string name="alarm_name_hint">输入名称</string>
+    <string name="alarm_name_hint">请输入对该提醒的描述</string>
     <string name="text_ok">OK</string>
     <string name="text_cancel">Cancel</string>
     <string name="delete_alarm">Delete</string>
@@ -30,4 +30,7 @@
     <string name="preference_refresh_interval_default">10800000</string>
     <string name="refresh_button_text">Refresh</string>
 
+    <string name="notification_content_title">你有新的天气提醒</string>
+    <string name="notification_content_text">共{v}个提醒</string>
+    <string name="big_content_title">你有新的天气提醒</string>
 </resources>

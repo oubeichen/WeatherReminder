@@ -11,10 +11,12 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 @SuppressLint("SimpleDateFormat")
 public class WeatherManager
 {
+    private static final String LOG_TAG = "WeatherManager";
 
     private static boolean isOpen = false;
 
@@ -69,10 +71,8 @@ public class WeatherManager
             cityname = forecast.getString("city");
             isOpen = true;
             storeWeather(storage);
-        }
-        catch (JSONException e)
-        {
-
+        } catch (JSONException e) {
+            Log.d(LOG_TAG, "Invalid JSON weather format");
         } catch (ParseException e) {
 
         }

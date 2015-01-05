@@ -11,10 +11,10 @@
     </string-array>
 
     <string-array name="qw_type">
-        <item>高于</item>
-        <item>低于</item>
+        <item>高于等于</item>
+        <item>低于等于</item>
     </string-array>
-    
+
     <string-array name="day_type">
         <item>今日</item>
         <item>明日</item>
@@ -26,6 +26,7 @@
     <string-array name="temp_val">
         <item>-5℃</item>
         <item>0℃</item>
+        <item>5℃</item>
         <item>10℃</item>
         <item>15℃</item>
         <item>20℃</item>
@@ -33,6 +34,18 @@
         <item>30℃</item>
         <item>35℃</item>
     </string-array>
+
+    <integer-array name="temp_values">
+        <item>-5</item>
+        <item>0</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+    </integer-array>
 
     <string-array name="index_type">
         <item>为</item>

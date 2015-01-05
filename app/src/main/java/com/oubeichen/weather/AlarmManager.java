@@ -2,7 +2,6 @@ package com.oubeichen.weather;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,15 +59,12 @@ public class AlarmManager {
             loadAlarm();
         }
         if(!mAlarms.contains(alarm)){
-            Log.i("AlarmManager", "add alarm, now size " + mAlarms.size() + mIsOpen);
             mAlarms.add(alarm);
-            Log.i("AlarmManager", "add alarm finished, now size " + mAlarms.size());
         }
         save();
     }
 
     private static void reload() throws JSONException {
-        Log.i("AlarmManager", "reload");
         mAlarms.clear();
         int len = mJSONAlarms.length();
         for(int i = 0;i < len; i++) {

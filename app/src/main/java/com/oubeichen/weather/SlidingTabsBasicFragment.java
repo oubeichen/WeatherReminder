@@ -16,15 +16,9 @@
 
 package com.oubeichen.weather;
 
-import java.util.List;
-
-import com.oubeichen.weather.common.view.SlidingTabLayout;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -33,9 +27,12 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.oubeichen.weather.common.view.SlidingTabLayout;
+
+import java.util.List;
 
 public class SlidingTabsBasicFragment extends Fragment {
 

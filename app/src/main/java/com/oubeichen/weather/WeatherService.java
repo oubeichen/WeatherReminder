@@ -95,10 +95,9 @@ public class WeatherService extends Service {
                 if(alarms != null && alarms.size() > 0) {
                     NotificationManager notificationManager = (NotificationManager)
                             mContext.getSystemService(android.content.Context.NOTIFICATION_SERVICE);
-                    // Creates an Intent for the Activity
+                    // 设置通知点击事件
                     Intent notifyIntent =
                             new Intent(mContext, MainActivity.class);
-                    // Sets the Activity to start in a new, empty task
                     notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     PendingIntent pendingNotifyIntent =
                             PendingIntent.getActivity(
@@ -107,16 +106,18 @@ public class WeatherService extends Service {
                                     notifyIntent,
                                     PendingIntent.FLAG_UPDATE_CURRENT
                             );
+                    // 设置Notification
+                    String content_text = getString(R.string.notification_content_text);
                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext)
                             .setSmallIcon(R.drawable.ic_launcher)
-                            .setContentTitle("你有新的天气提醒")
-                            .setContentText("天气提醒")
+                            .setContentTitle(getString(R.string.notification_content_title))
+                            .setContentText(content_text.replace("{v}", String.valueOf(alarms.size())))
                             .setContentIntent(pendingNotifyIntent);
                     NotificationCompat.InboxStyle inboxStyle =
                             new NotificationCompat.InboxStyle();
-                    // Sets a title for the Inbox in expanded layout
-                    inboxStyle.setBigContentTitle("提醒内容：");
-                    // Moves events into the expanded layout
+                    // 设置可扩展Notification
+                    inboxStyle.setBigContentTitle(getString(R.string.big_content_title));
+                    // Moves alarms into the expanded layout
                     for(Alarm alarm : alarms) {
                         inboxStyle.addLine(alarm.getName());
                     }

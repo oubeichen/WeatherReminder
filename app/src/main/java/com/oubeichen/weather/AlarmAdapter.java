@@ -48,7 +48,7 @@ public class AlarmAdapter extends BaseAdapter {
         }else {
             holder = (ViewHolder)convertView.getTag();
         }
-        holder.title.setText((String) AlarmManager.getAlarms().get(position).getName());
+        holder.title.setText(AlarmManager.getAlarms().get(position).getName());
         holder.onoff.setChecked(AlarmManager.getAlarms().get(position).getEnabled());
         
         holder.onoff.setOnCheckedChangeListener(new OnCheckedChangeListener(){
