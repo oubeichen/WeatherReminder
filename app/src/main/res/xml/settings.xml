@@ -17,14 +17,14 @@
         android:key="preference_refresh_interval"
         android:title="@string/preference_refresh_interval_title" />
     <PreferenceCategory
-        android:title="关于">
+        android:title="@string/about_text">
         <Preference
-            android:summary="0.1"
-            android:title="版本"
+            android:summary="@string/version_code"
+            android:title="@string/version_text"
             android:persistent="false"/>
         <Preference
-            android:summary="计算机系 欧北辰"
-            android:title="作者"
+            android:summary="@string/author_content"
+            android:title="@string/author_text"
             android:persistent="false"/>
     </PreferenceCategory>
 </PreferenceScreen>

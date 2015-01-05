@@ -33,4 +33,9 @@
     <string name="notification_content_title">你有新的天气提醒</string>
     <string name="notification_content_text">共{v}个提醒</string>
     <string name="big_content_title">你有新的天气提醒</string>
+    <string name="about_text">关于</string>
+    <string name="version_text">版本</string>
+    <string name="version_code">0.1</string>
+    <string name="author_content">计算机系 欧北辰</string>
+    <string name="author_text">作者</string>
 </resources>
