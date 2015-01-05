@@ -2,6 +2,7 @@ package com.oubeichen.weather;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,6 +16,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class AlarmManager {
+    private static final String TAG = "AlarmManager";
+    
     private static final String STORAGE_FILENAME = "AlarmStorage.json";
 
     private static JSONObject mJSONRoot;
@@ -152,8 +155,66 @@ public class AlarmManager {
             loadAlarm();
         }
         List<Alarm> alarms = new ArrayList<Alarm>();
-        for(Alarm alarm:mAlarms) {
-            
+        int temp_values[] = mContext.getResources().getIntArray(R.array.temp_values);
+        int temps_min[] = new int[5],temps_max[] = new int[5];
+        List<String[]> index_types = new ArrayList<String[]>();
+        index_types.add(mContext.getResources().getStringArray(R.array.fs_type));
+        index_types.add(mContext.getResources().getStringArray(R.array.cy_type));
+        index_types.add(mContext.getResources().getStringArray(R.array.yd_type));
+        index_types.add(mContext.getResources().getStringArray(R.array.xc_type));
+        index_types.add(mContext.getResources().getStringArray(R.array.ls_type));
+        try {
+            // 处理天气的最大值和最小值 如 "11℃~0℃" 的天气最大值最小值分别为 11 和 0
+            for(int i = 1;i <= 5;i++) {
+                String t[] = WeatherManager.temp_day[i].split("~");
+                temps_max[i - 1] = Integer.valueOf(t[0].substring(0, t[0].length() - 1));
+                temps_min[i - 1] = Integer.valueOf(t[1].substring(0, t[1].length() - 1));
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "Error parsing temps");
+        }
+        for(Alarm alarm : mAlarms) {
+            if(alarm.getEnabled()) {
+                Boolean flag = true;
+                for(Alarm.Cond cond : alarm.getConds()) {
+                    if(cond.getOpt1() == 0) { //最低气温 opt2为高于还是低于 opt3为具体的温度 opt4为哪一天
+                        if(cond.getOpt2() == 0) {// 高于等于
+                            if(temps_min[cond.getOpt4()] < temp_values[cond.getOpt3()]) {
+                                flag = false;
+                                break;
+                            }
+                        } else { //低于等于
+                            if(temps_min[cond.getOpt4()] > temp_values[cond.getOpt3()]) {
+                                flag = false;
+                                break;
+                            }
+                        }
+                    } else if(cond.getOpt1() == 1) { //最高气温 opt2为高于还是低于 opt3为具体的温度 opt4为哪一天
+                        if(cond.getOpt2() == 0) {// 高于等于
+                            if(temps_max[cond.getOpt4()] < temp_values[cond.getOpt3()]) {
+                                flag = false;
+                                break;
+                            }
+                        } else { //低于等于
+                            if(temps_max[cond.getOpt4()] > temp_values[cond.getOpt3()]) {
+                                flag = false;
+                                break;
+                            }
+                        }
+                    } else if(cond.getOpt1() >= 2 && cond.getOpt1() <= 6) { // 2,3,4,5,6 分别为防晒、穿衣、运动、洗车、晾晒指数
+                        int location = cond.getOpt1() - 2; //各指数的数据存放从0开始
+                        Boolean res = WeatherManager.living_index[location].equals(
+                                index_types.get(location)[cond.getOpt3()]);
+                        if(res == (cond.getOpt2() == 0 ? false : true)) { //0则res应该为true 1则res应该为false
+                            flag = false;
+                            break;
+                        }
+                    }
+                }
+                if(flag) {
+                    alarms.add(alarm);
+                }
+            }
         }
         return alarms;
     }
