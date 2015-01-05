@@ -27,6 +27,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -204,6 +205,11 @@ public class SlidingTabsBasicFragment extends Fragment {
         temp_day.setText(WeatherManager.temp_today);
         temp_day.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
         // update weather
+        int drawableid;
+        drawableid = Utils.getDrawable(WeatherManager.weather_today);
+        ((ImageView) view.findViewById(R.id.image_day))
+                .setImageResource(drawableid);
+        
         ((TextView) view.findViewById(R.id.weather_day))
                 .setText(WeatherManager.weather_today);
         // update wind
@@ -223,6 +229,9 @@ public class SlidingTabsBasicFragment extends Fragment {
                 .setText(WeatherManager.cityname);
 
         // update forecast
+        drawableid = Utils.getDrawable(WeatherManager.weather_day[1]);
+        ((ImageView) view.findViewById(R.id.image_day1))
+                .setImageResource(drawableid);
         ((TextView) view.findViewById(R.id.temp_day1))
                 .setText(WeatherManager.temp_day[1]);
         ((TextView) view.findViewById(R.id.weather_day1))
@@ -230,6 +239,9 @@ public class SlidingTabsBasicFragment extends Fragment {
         ((TextView) view.findViewById(R.id.date1))
                 .setText(WeatherManager.date_day[1]);
         // day1
+        drawableid = Utils.getDrawable(WeatherManager.weather_day[2]);
+        ((ImageView) view.findViewById(R.id.image_day2))
+                .setImageResource(drawableid);
         ((TextView) view.findViewById(R.id.temp_day2))
                 .setText(WeatherManager.temp_day[2]);
         ((TextView) view.findViewById(R.id.weather_day2))
@@ -237,6 +249,9 @@ public class SlidingTabsBasicFragment extends Fragment {
         ((TextView) view.findViewById(R.id.date2))
                 .setText(WeatherManager.date_day[2]);
         // day2
+        drawableid = Utils.getDrawable(WeatherManager.weather_day[3]);
+        ((ImageView) view.findViewById(R.id.image_day3))
+                .setImageResource(drawableid);
         ((TextView) view.findViewById(R.id.temp_day3))
                 .setText(WeatherManager.temp_day[3]);
         ((TextView) view.findViewById(R.id.weather_day3))
@@ -244,6 +259,9 @@ public class SlidingTabsBasicFragment extends Fragment {
         ((TextView) view.findViewById(R.id.date3))
                 .setText(WeatherManager.date_day[3]);
         // day3
+        drawableid = Utils.getDrawable(WeatherManager.weather_day[4]);
+        ((ImageView) view.findViewById(R.id.image_day4))
+                .setImageResource(drawableid);
         ((TextView) view.findViewById(R.id.temp_day4))
                 .setText(WeatherManager.temp_day[4]);
         ((TextView) view.findViewById(R.id.weather_day4))
@@ -251,6 +269,9 @@ public class SlidingTabsBasicFragment extends Fragment {
         ((TextView) view.findViewById(R.id.date4))
                 .setText(WeatherManager.date_day[4]);
         // day4
+        drawableid = Utils.getDrawable(WeatherManager.weather_day[5]);
+        ((ImageView) view.findViewById(R.id.image_day5))
+                .setImageResource(drawableid);
         ((TextView) view.findViewById(R.id.temp_day5))
                 .setText(WeatherManager.temp_day[5]);
         ((TextView) view.findViewById(R.id.weather_day5))
