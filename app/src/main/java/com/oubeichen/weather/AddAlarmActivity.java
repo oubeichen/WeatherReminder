@@ -11,6 +11,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 新建提醒所打开的Activity
+ */
 public class AddAlarmActivity extends FragmentActivity {
 
     private int mCount;
@@ -28,10 +31,11 @@ public class AddAlarmActivity extends FragmentActivity {
 
         mCount = getIntent().getIntExtra("Count", -1);
         
-        if(mCount != -1) {
+        if(mCount != -1) { // 编辑一个提醒
             mAlarm = AlarmManager.getAlarms().get(mCount);
             mNameTextView.setText(mAlarm.getName());
             for(Alarm.Cond cond : mAlarm.getConds()) {
+                // 初始化fragment
                 FragmentTransaction transaction = getSupportFragmentManager()
                         .beginTransaction();
                 Bundle bundle = new Bundle();
@@ -47,7 +51,7 @@ public class AddAlarmActivity extends FragmentActivity {
             
         }
     }
-    
+    // 新增一个条件 按钮的点击事件
     public void addConditionClick(View view) {
         FragmentTransaction transaction = getSupportFragmentManager()
                 .beginTransaction();
@@ -56,7 +60,7 @@ public class AddAlarmActivity extends FragmentActivity {
                 "Frag" + ConditionFragment.getCount());
         transaction.commit();
     }
-
+    // 删除一个条件 按钮的点击事件
     public void delConditionClick(View view) {
         if(ConditionFragment.getCount() == 0){
             return;
@@ -69,7 +73,7 @@ public class AddAlarmActivity extends FragmentActivity {
         transaction.commit();
         ConditionFragment.del();
     }
-    
+    // 完成按钮的点击事件
     public void onOKClick(View view) {
         try {
             int fragCount = ConditionFragment.getCount();
@@ -105,7 +109,7 @@ public class AddAlarmActivity extends FragmentActivity {
             finish();
         }
     }
-
+    //取消按钮的点击事件
     public void onCancelClick(View view) {
         setResult(RESULT_CANCELED);
         finish();

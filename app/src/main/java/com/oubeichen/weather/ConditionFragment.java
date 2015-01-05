@@ -13,6 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+/**
+ * 在AddAlarmActivity中成批显示，每个Fragment代表一个提醒的条件
+ */
 public class ConditionFragment extends Fragment {
 
     private ArrayAdapter<String> condAdapter;

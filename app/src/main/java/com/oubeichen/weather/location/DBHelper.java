@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.oubeichen.weather.location.DBManager;
 
+/**
+ * 打开关闭查询CityID数据库的Helper
+ */
 public class DBHelper extends SQLiteOpenHelper {
 
 	public static final int DATABASE_VERSION = 1;

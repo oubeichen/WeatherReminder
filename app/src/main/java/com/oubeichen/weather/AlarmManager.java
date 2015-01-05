@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * 管理提醒数据
+ */
 public class AlarmManager {
     private static final String TAG = "AlarmManager";
     
@@ -28,6 +31,10 @@ public class AlarmManager {
 
     private static boolean mIsOpen = false;
 
+    /**
+     * 从文件读取数据，没有数据则新建一个空的JSON
+     * @return
+     */
     public static List<Alarm> loadAlarm() {
         byte[] bbuf = new byte[100000];
         int len;
@@ -53,6 +60,12 @@ public class AlarmManager {
         return mAlarms;
     }
 
+    /**
+     * 新建或者编辑一个提醒
+     * @param alarm
+     * @throws JSONException
+     * @throws IOException
+     */
     public static void addOrEditAlarm(Alarm alarm)
             throws JSONException, IOException {
         if(!mIsOpen){
@@ -64,6 +77,10 @@ public class AlarmManager {
         save();
     }
 
+    /**
+     * 从JSON中读取数据到类
+     * @throws JSONException
+     */
     private static void reload() throws JSONException {
         mAlarms.clear();
         int len = mJSONAlarms.length();
@@ -89,6 +106,11 @@ public class AlarmManager {
         }
     }
 
+    /**
+     * 存储数据到JSON文件
+     * @throws IOException
+     * @throws JSONException
+     */
     private static void save() throws IOException, JSONException {
         mJSONAlarms = new JSONArray();
         mJSONRoot.put("alarms", mJSONAlarms);
@@ -118,6 +140,10 @@ public class AlarmManager {
 
     }
 
+    /**
+     * 删除一个提醒
+     * @param pos 要删除的位置
+     */
     public static void delAlarm(int pos){
         try {
             mAlarms.remove(pos);
@@ -126,6 +152,11 @@ public class AlarmManager {
         }
     }
 
+    /**
+     * 开启/关闭一个提醒
+     * @param pos
+     * @param enabled
+     */
     public static void setEnabled(int pos, Boolean enabled) {
         try {
             mAlarms.get(pos).setEnabled(enabled);

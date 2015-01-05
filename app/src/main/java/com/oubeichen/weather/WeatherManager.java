@@ -13,6 +13,9 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+/**
+ * 管理天气数据
+ */
 @SuppressLint("SimpleDateFormat")
 public class WeatherManager
 {

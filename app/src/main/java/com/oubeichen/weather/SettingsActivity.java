@@ -9,6 +9,7 @@ import android.preference.PreferenceFragment;
 
 /**
  * Created by oubeichen on 2014/12/31 0031.
+ * 设置界面的Activity
  */
 public class SettingsActivity extends Activity {
     @Override

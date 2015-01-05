@@ -9,6 +9,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Environment;
 
+/**
+ * 管理CityID数据库的工具
+ */
 public class DBManager {
 	private static final int BUFFER_SIZE = 400000;
 	private static final String PACKAGE_NAME = "com.oubeichen.weather";

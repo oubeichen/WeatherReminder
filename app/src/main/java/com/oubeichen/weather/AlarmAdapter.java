@@ -17,6 +17,9 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+/**
+ * 显示提醒的ListView的Adapter
+ */
 public class AlarmAdapter extends BaseAdapter {
 
     public final class ViewHolder{

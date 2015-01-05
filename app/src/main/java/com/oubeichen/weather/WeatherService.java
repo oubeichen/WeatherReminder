@@ -32,6 +32,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * 后台Service，刷新天气，为提醒设置Notification
+ */
 public class WeatherService extends Service {
     
     public static final String TAG = "WeatherService";
@@ -74,12 +77,16 @@ public class WeatherService extends Service {
             public void run() {
                 // 定时更新
                 refreshWeather();
+                checkAlarms();
             }
-        }, 0, refresh_interval);// 每隔4小时
+        }, 0, refresh_interval);// 每隔一定时间重新获取一次天气，并且发送Notification
 
         return super.onStartCommand(intent, flags, startId);
     }
-    
+
+    /**
+     * 获取天气
+     */
     private void refreshWeather() {
         String jsonString;
         try {
@@ -93,7 +100,7 @@ public class WeatherService extends Service {
                 cityid = "101280101";
             } else if(city.equals("nj")) {
                 cityid = "101190101";
-            } else {
+            } else { // 通过地理位置获取天气
                 LocationManager mgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 mLocation = mgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 int retry = 0;
@@ -126,6 +133,12 @@ public class WeatherService extends Service {
         LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(Utils.getInstance());
         lbm.sendBroadcast(new Intent(BROADCAST_REFRESH));
 
+    }
+
+    /**
+     * 检查是否有符合条件的提醒，并且创建Notification
+     */
+    private void checkAlarms() {
         List<Alarm> alarms = AlarmManager.checkAlarms();
 
         if(alarms != null && alarms.size() > 0) {
@@ -225,6 +238,9 @@ public class WeatherService extends Service {
         Log.i(TAG, "service stopped");
     }
 
+    /**
+     * 监听物理位置变化
+     */
     private final LocationListener locationListener = new LocationListener() {
         public void onLocationChanged(Location location) { //当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
             // log it when the location changes

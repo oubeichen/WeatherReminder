@@ -34,6 +34,9 @@ import com.oubeichen.weather.common.view.SlidingTabLayout;
 
 import java.util.List;
 
+/**
+ * 管理viewpager的Fragment
+ */
 public class SlidingTabsBasicFragment extends Fragment {
 
     static final String LOG_TAG = "SlidingTabsBasicFragment";

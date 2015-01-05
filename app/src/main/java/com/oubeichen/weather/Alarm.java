@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by oubeichen on 2014/12/28 0028.
+ * 定义一个提醒的类
  */
 public class Alarm {
     String name;
