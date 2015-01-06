@@ -14,22 +14,21 @@ import android.os.Environment;
  */
 public class DBManager {
 	private static final int BUFFER_SIZE = 400000;
-	private static final String PACKAGE_NAME = "com.oubeichen.weather";
 	public static final String DB_NAME = "citychina.db";
-	private static final String DB_PATH = "/data"
-			+ Environment.getDataDirectory().getAbsolutePath() + "/"
-			+ PACKAGE_NAME + "/databases";
 
 	/** copy the database under raw*/
 	public static void copyDatabase(Context context) {
 
-		File file = new File(DB_PATH);
-		if (!file.isDirectory())
-			file.mkdir();
-		String dbfile = DB_PATH + "/" + DB_NAME;
-
+		File dbfile = context.getDatabasePath(DB_NAME);
+        File path = dbfile.getParentFile();
+        if(!path.isDirectory()) {
+            path.mkdir();
+        }
 		try {
-			if (new File(dbfile).length() == 0) {
+            if(!dbfile.exists()) {
+                dbfile.createNewFile();
+            }
+			if (dbfile.length() == 0) {
 
 				FileOutputStream fos = new FileOutputStream(dbfile);
 				byte[] buffer = new byte[BUFFER_SIZE];

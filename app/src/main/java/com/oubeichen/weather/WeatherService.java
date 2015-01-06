@@ -13,6 +13,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
@@ -75,6 +76,7 @@ public class WeatherService extends Service {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                Looper.prepare();
                 // 定时更新
                 refreshWeather();
                 checkAlarms();
@@ -109,14 +111,16 @@ public class WeatherService extends Service {
                     mgr.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 60000, 1, locationListener);
                     retry++;
                 }
-                if(retry != 3) {
+                if(retry < 3) {
                     LocationUtil.logi("location = " + mLocation.getLatitude() + "," + mLocation.getLongitude());
                     //mLocation.setLatitude(39);
                     //mLocation.setLongitude(115);
                     String cityname = LocationUtil.getLocation(String.valueOf(mLocation.getLatitude()), String.valueOf(mLocation.getLongitude()));
                     LocationUtil.logi("cityname = " + cityname);
                     cityid = DBManager.getCityId(mContext, cityname);
+                    LocationUtil.logi("cityid = " + cityid);
                 } else { // 默认南京
+                    LocationUtil.logi("cannot get location!");
                     cityid = "101190101";
                 }
             }
