@@ -64,9 +64,11 @@
 
     <string-array name="cy_type">
         <item>寒冷</item>
+        <item>冷</item>
         <item>较冷</item>
         <item>普通</item>
         <item>暖</item>
+        <item>较热</item>
         <item>热</item>
         <item>较舒适</item>
         <item>舒适</item>
