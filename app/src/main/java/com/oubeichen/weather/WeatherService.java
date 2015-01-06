@@ -139,9 +139,9 @@ public class WeatherService extends Service {
                     LocationUtil.logi("cityname = " + cityname);
                     cityid = DBManager.getCityId(mContext, cityname);
                     LocationUtil.logi("cityid = " + cityid);
-                } else { // 默认南京
+                } else { // 默认北京
                     LocationUtil.logi("cannot get location!");
-                    cityid = "101190101";
+                    cityid = "101010100";
                 }
             }
             jsonString = loadFromNetwork(SOURCE_URL + cityid);
