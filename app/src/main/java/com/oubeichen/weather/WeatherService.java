@@ -1,16 +1,20 @@
 package com.oubeichen.weather;
 
 import android.app.Activity;
+
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Looper;
@@ -18,7 +22,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.oubeichen.weather.location.DBManager;
 import com.oubeichen.weather.location.LocationUtil;
@@ -46,13 +49,19 @@ public class WeatherService extends Service {
 
     public static final String SOURCE_URL = "http://weatherapi.market.xiaomi.com/wtr-v2/weather?cityId=";
     
+    private static final String CALLED_FROM_NETWORKRECEIVER = "calledFromReceiver";
+    
     private Context mContext;
 
     private Timer timer;
     
     private Location mLocation;
+    
+    private Boolean mCalledFromReceiver;
 
     SharedPreferences mSharedPrefs;
+
+    IntentFilter mNetworkFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
 
     public WeatherService() {
     }
@@ -67,6 +76,10 @@ public class WeatherService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "service started");
         mContext = this;
+        mCalledFromReceiver = false;
+        if(intent != null) {
+            mCalledFromReceiver = intent.getBooleanExtra(CALLED_FROM_NETWORKRECEIVER, false);
+        }
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         int refresh_interval = Integer.valueOf(mSharedPrefs.getString("preference_refresh_interval", "10800000"));
@@ -76,10 +89,17 @@ public class WeatherService extends Service {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Looper.prepare();
+                try {
+                    Looper.prepare();
+                } catch (Exception e) {
+
+                }
                 // 定时更新
-                refreshWeather();
-                checkAlarms();
+                if(refreshWeather()) {
+                    checkAlarms();
+                    mCalledFromReceiver = false;
+                    //成功获取一次天气
+                }
             }
         }, 0, refresh_interval);// 每隔一定时间重新获取一次天气，并且发送Notification
 
@@ -89,7 +109,7 @@ public class WeatherService extends Service {
     /**
      * 获取天气
      */
-    private void refreshWeather() {
+    private Boolean refreshWeather() {
         String jsonString;
         try {
             String cityid;
@@ -127,8 +147,20 @@ public class WeatherService extends Service {
             jsonString = loadFromNetwork(SOURCE_URL + cityid);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i(TAG, "get weather error");
-            return;
+            // 注册一个receiver
+            // 下次网络联通的时候自动刷新天气
+            if(!mCalledFromReceiver) {
+                Log.i(TAG, "get weather error, will try again when network available");
+                try {
+                    registerReceiver(mNetworkReceiver, mNetworkFilter);
+                } catch (Exception ex) {
+                    Log.i(TAG, "cannot register network receiver");
+                }
+            } else {
+                // 从receiver唤醒的，不再次获取了
+                Log.i(TAG, "get weather error");
+            }
+            return false;
         }
         Log.i(TAG, "get weather");
         SharedPreferences storage = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
@@ -136,7 +168,7 @@ public class WeatherService extends Service {
         // 发送广播
         LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(Utils.getInstance());
         lbm.sendBroadcast(new Intent(BROADCAST_REFRESH));
-
+        return true;
     }
 
     /**
@@ -239,6 +271,13 @@ public class WeatherService extends Service {
         if(timer != null){
             timer.cancel();
         }
+        mCalledFromReceiver = false;
+        // 尝试取消注册receiver
+        try {
+            unregisterReceiver(mNetworkReceiver);
+        } catch (Exception ex) {
+            Log.i(TAG, "cannot unregister network receiver");
+        }
         Log.i(TAG, "service stopped");
     }
 
@@ -269,6 +308,23 @@ public class WeatherService extends Service {
         @Override
         public void onProviderDisabled(String s) {
 
+        }
+    };
+
+    private final BroadcastReceiver mNetworkReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            if (networkInfo != null && networkInfo.isConnected()) {
+                Log.i(TAG, "network available");
+                // 重启服务，达到重新获取天气的效果
+                Intent s = new Intent(context, WeatherService.class);
+                s.putExtra(CALLED_FROM_NETWORKRECEIVER, true);
+                context.stopService(s);
+                context.startService(s);
+            }
         }
     };
 }
