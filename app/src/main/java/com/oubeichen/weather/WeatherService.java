@@ -125,13 +125,11 @@ public class WeatherService extends Service {
             } else { // 通过地理位置获取天气
                 LocationManager mgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 mLocation = mgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                int retry = 0;
-                while(mLocation  == null && retry < 3) //只尝试五次
-                {
-                    mgr.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 60000, 1, locationListener);
-                    retry++;
-                }
-                if(retry < 3) {
+//                if(mLocation  == null)
+//                {
+//                    mgr.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 60000, 1, locationListener);
+//                }
+                if(mLocation != null) {
                     LocationUtil.logi("location = " + mLocation.getLatitude() + "," + mLocation.getLongitude());
                     //mLocation.setLatitude(39);
                     //mLocation.setLongitude(115);
@@ -281,35 +279,35 @@ public class WeatherService extends Service {
         Log.i(TAG, "service stopped");
     }
 
-    /**
-     * 监听物理位置变化
-     */
-    private final LocationListener locationListener = new LocationListener() {
-        public void onLocationChanged(Location location) { //当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
-            // log it when the location changes
-            if (location != null) {
-                Log.i("SuperMap", "Location changed : Lat: "
-                        + location.getLatitude() + " Lng: "
-                        + location.getLongitude());
-                mLocation = location;
-            }
-        }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String s) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String s) {
-
-        }
-    };
+//    /**
+//     * 监听物理位置变化
+//     */
+//    private final LocationListener locationListener = new LocationListener() {
+//        public void onLocationChanged(Location location) { //当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
+//            // log it when the location changes
+//            if (location != null) {
+//                Log.i("SuperMap", "Location changed : Lat: "
+//                        + location.getLatitude() + " Lng: "
+//                        + location.getLongitude());
+//                mLocation = location;
+//            }
+//        }
+//
+//        @Override
+//        public void onStatusChanged(String s, int i, Bundle bundle) {
+//
+//        }
+//
+//        @Override
+//        public void onProviderEnabled(String s) {
+//
+//        }
+//
+//        @Override
+//        public void onProviderDisabled(String s) {
+//
+//        }
+//    };
 
     private final BroadcastReceiver mNetworkReceiver = new BroadcastReceiver() {
 
