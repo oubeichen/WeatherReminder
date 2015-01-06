@@ -189,7 +189,13 @@ public class ConditionFragment extends Fragment {
         if (getArguments() != null) {
             if (mBundle.getInt("opt1", -1) != -1) {
                 mCondType1.setSelection(mBundle.getInt("opt1", 0), true);
-                // 另外三个下拉框不能在这里初始化，因为onCreatView完成之后会触发一次OnItemSelected事件
+                // 若这里不为0，则另外三个下拉框不能在这里初始化，因为onCreatView完成之后会触发一次OnItemSelected事件
+                if(mCondType1.getSelectedItemPosition() == 0 && autoSelect) {
+                    mCondType2.setSelection(mBundle.getInt("opt2", 0), true);
+                    mCondType3.setSelection(mBundle.getInt("opt3", 0), true);
+                    mCondType4.setSelection(mBundle.getInt("opt4", 0), true);
+                    autoSelect = false;
+                }
             } else {
                 autoSelect = false;
             }
